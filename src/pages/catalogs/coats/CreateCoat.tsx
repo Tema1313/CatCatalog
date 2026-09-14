@@ -27,7 +27,7 @@ const CreateCoatSchema = z.object({
 
 type CreateCoatFormData = z.infer<typeof CreateCoatSchema>
 
-export const CreateCoat: FC<ICreateCoatProps> = (props) => {
+export const CreateCoat: FC<ICreateCoatProps> = () => {
 	const [open, setOpen] = useState<boolean>(false)
 	const [loading, reqSim] = useRequestSimulation()
 

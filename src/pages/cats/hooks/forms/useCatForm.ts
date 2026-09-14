@@ -86,7 +86,7 @@ export const useCatForm = (props: ICatForm) => {
                 return
             } else {
                 console.log(data)
-                toast("Technichal problems", {
+                toast("Technichal problemeows", {
                     position: "top-right",
                 })
             }

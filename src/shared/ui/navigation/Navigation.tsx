@@ -11,7 +11,7 @@ import { useNavigate } from "@tanstack/react-router"
 
 interface INavigationProps {}
 
-export const Navigation: FC<INavigationProps> = (props) => {
+export const Navigation: FC<INavigationProps> = () => {
 	const navigate = useNavigate()
 
 	return (

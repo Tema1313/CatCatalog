@@ -35,7 +35,7 @@ const CreateColorSchema = z.object({
 
 type CreateColorFormData = z.infer<typeof CreateColorSchema>
 
-export const CreateColor: FC<ICreateColorProps> = (props) => {
+export const CreateColor: FC<ICreateColorProps> = () => {
 	const [open, setOpen] = useState<boolean>(false)
 	const [loading, reqSim] = useRequestSimulation()
 
@@ -55,7 +55,7 @@ export const CreateColor: FC<ICreateColorProps> = (props) => {
 	const onSubmit = (data: CreateColorFormData) => {
 		reqSim(() => {
 			console.log(data)
-			toast("Technichal problems", {
+			toast("Technichal problemeows", {
 				position: "top-right",
 			})
 		})

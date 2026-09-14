@@ -10,7 +10,7 @@ import type { FC } from "react"
 
 interface IProfileNavigationProps {}
 
-export const ProfileNavigation: FC<IProfileNavigationProps> = (props) => {
+export const ProfileNavigation: FC<IProfileNavigationProps> = () => {
 	const auth = useAuth()
 
 	return (

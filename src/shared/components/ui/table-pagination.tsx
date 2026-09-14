@@ -75,34 +75,32 @@ export const TablePagination = <T,>({ table, setPageIndex, pageIndex, centerButt
 							}}
 							disabled={!table.getCanPreviousPage()}
 							className="cursor-pointer"
+							aria-label="page-index-minus"
 						>
 							<ChevronLeft />
 						</Button>
 					</PaginationItem>
 
 					{paginationRange.map((pageNumber, index) => {
-						return (
-							pageNumber === PAGINATION_ELLIPSIS ? (
-								<PaginationItem key={`ellipsis-${index}`}>
-									<PaginationEllipsis />
-								</PaginationItem>
-							) : (
-								<PaginationItem key={`page-${pageNumber}`}>
-									<PaginationLink
-										className="cursor-pointer"
-										onClick={() => {
-											const currentIndex = pageNumber - 1
-											setPageIndex(currentIndex)
-										}}
-										isActive={currentPageIndex === pageNumber - 1}
-									>
-										{pageNumber}
-									</PaginationLink>
-								</PaginationItem>
-							)
+						return pageNumber === PAGINATION_ELLIPSIS ? (
+							<PaginationItem key={`ellipsis-${index}`}>
+								<PaginationEllipsis />
+							</PaginationItem>
+						) : (
+							<PaginationItem key={`page-${pageNumber}`}>
+								<PaginationLink
+									className="cursor-pointer"
+									onClick={() => {
+										const currentIndex = pageNumber - 1
+										setPageIndex(currentIndex)
+									}}
+									isActive={currentPageIndex === pageNumber - 1}
+								>
+									{pageNumber}
+								</PaginationLink>
+							</PaginationItem>
 						)
-					}
-					)}
+					})}
 
 					<PaginationItem>
 						<Button
@@ -113,6 +111,7 @@ export const TablePagination = <T,>({ table, setPageIndex, pageIndex, centerButt
 							}}
 							disabled={!table.getCanNextPage()}
 							className="cursor-pointer"
+							aria-label="page-index-plus"
 						>
 							<ChevronRight />
 						</Button>

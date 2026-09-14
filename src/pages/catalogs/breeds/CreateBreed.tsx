@@ -27,7 +27,7 @@ const CreateBreedSchema = z.object({
 
 type CreateBreedFormData = z.infer<typeof CreateBreedSchema>
 
-export const CreateBreed: FC<ICreateBreedProps> = (props) => {
+export const CreateBreed: FC<ICreateBreedProps> = () => {
 	const [open, setOpen] = useState<boolean>(false)
 	const [loading, reqSim] = useRequestSimulation()
 

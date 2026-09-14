@@ -19,7 +19,7 @@ export const useAuth = create<IAuth>()(
         {
             name: 'user-storage',
             partialize: (state) => ({
-                userName: state.setLogin,
+                login: state.login,
                 isLoggedIn: state.isLoggedIn
             })
         }

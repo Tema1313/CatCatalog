@@ -31,7 +31,7 @@ export const FiltersSchema = z.object({
 
 export type FilterFormData = z.infer<typeof FiltersSchema>
 
-export const Filters: FC<IFiltersProps> = (props) => {
+export const Filters: FC<IFiltersProps> = () => {
 	const [, reqSim] = useRequestSimulation()
 	const searchParams = useSearch({ from: "__root__" })
 	const navigate = useNavigate({ from: "/" })

@@ -63,29 +63,39 @@ const cats: ICat[] = [
         owner: "Иван",
         mass: 4.2,
         date: "2025-01-15",
-        colorId: 1,
+        colorId: 3,
         locationTypeId: 2,
         breedTypeId: 1,
         softness: "средняя",
         breadness: true,
         bigeyedness: 7,
-        stars: 5
+        stars: 5,
+        photos: [
+            "https://ik.imagekit.io/tema13/Barsik/photo1.jpg",
+            "https://ik.imagekit.io/tema13/Barsik/photo2.jpg",
+            "https://ik.imagekit.io/tema13/Barsik/photo3.jpg"
+        ]
     },
     {
         id: 2,
-        name: "Мурка",
-        shortName: "Муся",
-        coatTypeId: 4,
-        owner: "Анна",
-        mass: 3.8,
-        date: "2025-02-03",
-        colorId: 5,
+        name: "Каспер",
+        shortName: "Каспер",
+        coatTypeId: 2,
+        owner: "Артём",
+        mass: 4.4,
+        date: "2025-08-24",
+        colorId: 19,
         locationTypeId: 2,
-        breedTypeId: 8,
-        softness: "жёсткая",
-        breadness: false,
-        bigeyedness: 6,
-        stars: 5
+        breedTypeId: 7,
+        softness: "мягкая булочка",
+        breadness: true,
+        bigeyedness: 9,
+        stars: 5,
+        photos: [
+            "https://ik.imagekit.io/tema13/Kasper/photo1.jpg",
+            "https://ik.imagekit.io/tema13/Kasper/photo2.jpg",
+            "https://ik.imagekit.io/tema13/Kasper/photo3.jpg"
+        ]
     },
     {
         id: 3,
@@ -101,7 +111,11 @@ const cats: ICat[] = [
         softness: "очень мягкая",
         breadness: true,
         bigeyedness: 8,
-        stars: 5
+        stars: 5,
+        photos: [
+            "https://ik.imagekit.io/tema13/Rijick/photo1.jpg",
+            "https://ik.imagekit.io/tema13/Rijick/photo2.jpg"
+        ]
     },
     {
         id: 4,
@@ -117,23 +131,35 @@ const cats: ICat[] = [
         softness: "мягкая",
         breadness: true,
         bigeyedness: 9,
-        stars: 5
+        stars: 5,
+        photos: [
+            "https://ik.imagekit.io/tema13/Snejock/photo1.jpg",
+            "https://ik.imagekit.io/tema13/Snejock/photo2.jpg",
+            "https://ik.imagekit.io/tema13/Snejock/photo3.jpg"
+        ]
     },
     {
         id: 5,
-        name: "Граф",
-        shortName: "Граф",
+        name: "неизвестно",
+        shortName: "неизвестно",
         coatTypeId: 3,
-        owner: "Пётр",
+        owner: "Артур",
         mass: 6.0,
         date: "2025-04-01",
-        colorId: 9,
+        colorId: 1,
         locationTypeId: 2,
-        breedTypeId: 6,
+        breedTypeId: 7,
         softness: "средняя",
-        breadness: false,
-        bigeyedness: 5,
-        stars: 5
+        breadness: true,
+        bigeyedness: 10,
+        stars: 5,
+        photos: [
+            "https://ik.imagekit.io/tema13/Kot/photo1.jpg",
+            "https://ik.imagekit.io/tema13/Kot/photo2.jpg",
+            "https://ik.imagekit.io/tema13/Kot/photo3.jpg",
+            "https://ik.imagekit.io/tema13/Kot/photo4.jpg",
+            "https://ik.imagekit.io/tema13/Kot/photo5.jpg"
+        ]
     },
     {
         id: 6,
@@ -143,19 +169,24 @@ const cats: ICat[] = [
         owner: "Елена",
         mass: 3.5,
         date: "2025-01-25",
-        colorId: 11,
-        locationTypeId: 1,
+        colorId: 1,
+        locationTypeId: 2,
         breedTypeId: 7,
         softness: "мягкая",
         breadness: true,
         bigeyedness: 10,
-        stars: 5
+        stars: 5,
+        photos: [
+            "https://ik.imagekit.io/tema13/Luna/photo1.jpg",
+            "https://ik.imagekit.io/tema13/Luna/photo2.jpg",
+            "https://ik.imagekit.io/tema13/Luna/photo3.jpg"
+        ]
     },
     {
         id: 7,
         name: "Тиша",
         shortName: "Тиша",
-        coatTypeId: 5,
+        coatTypeId: 3,
         owner: "Дмитрий",
         mass: 3.1,
         date: "2025-03-05",
@@ -165,7 +196,12 @@ const cats: ICat[] = [
         softness: "без шерсти",
         breadness: false,
         bigeyedness: 8,
-        stars: 5
+        stars: 5,
+        photos: [
+            "https://ik.imagekit.io/tema13/Tisha/photo1.jpg",
+            "https://ik.imagekit.io/tema13/Tisha/photo2.jpg",
+            "https://ik.imagekit.io/tema13/Tisha/photo3.jpg"
+        ]
     },
     {
         id: 8,

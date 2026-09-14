@@ -35,7 +35,7 @@ import { CreateCoat } from "./CreateCoat"
 
 interface ICoatsProps {}
 
-export const Coats: FC<ICoatsProps> = (props) => {
+export const Coats: FC<ICoatsProps> = () => {
 	const [coats, setCoats] = useState<ICoatType[]>([])
 	const [sorting, setSorting] = React.useState<SortingState>([])
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])

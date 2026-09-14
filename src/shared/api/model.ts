@@ -53,6 +53,7 @@ interface ICat {
     bigeyedness?: number
     //рейтинг кота
     stars?: number
+    photos?: string[]
 }
 
 export type { IColor, ICoatType, RgbColor, ICat, ICatLocationType, ICatBreedType }

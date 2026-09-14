@@ -32,7 +32,7 @@ import { catColors } from "@/shared/api/testdata"
 
 export interface IColorsProps {}
 
-export const Colors: FC<IColorsProps> = (props) => {
+export const Colors: FC<IColorsProps> = () => {
 	const [colors, setColors] = useState<IColor[]>([])
 	const [loading, reqSim] = useRequestSimulation()
 

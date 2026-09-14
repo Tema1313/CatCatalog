@@ -5,6 +5,7 @@ import { useRequestSimulation } from "@/shared/hooks/useRequestSimulation"
 import { Loader2 } from "lucide-react"
 import { useEffect, useState, type FC } from "react"
 import { CatForm } from "../CatForm"
+import { CatPhotos } from "./CatPhotos"
 
 interface ICatPersonalInfoLayoutProps {
 	catId: number
@@ -43,7 +44,9 @@ export const CatPersonalInfoLayout: FC<ICatPersonalInfoLayoutProps> = (props) =>
 						</div>
 					</ResizablePanel>
 					<ResizableHandle />
-					<ResizablePanel defaultSize={50}>hello фотки</ResizablePanel>
+					<ResizablePanel defaultSize={50}>
+						<CatPhotos photos={cat?.photos || []} />
+					</ResizablePanel>
 				</ResizablePanelGroup>
 			)}
 		</>

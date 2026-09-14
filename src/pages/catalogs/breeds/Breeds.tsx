@@ -33,7 +33,7 @@ import { UpdateBreed } from "./UpdateBreed"
 
 interface ICoatsProps {}
 
-export const Breeds: FC<ICoatsProps> = (props) => {
+export const Breeds: FC<ICoatsProps> = () => {
 	const [breeds, setBreeds] = useState<ICatBreedType[]>([])
 	const [sorting, setSorting] = React.useState<SortingState>([])
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])

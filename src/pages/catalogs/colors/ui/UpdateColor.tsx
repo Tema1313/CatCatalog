@@ -62,7 +62,7 @@ export const UpdateColor: FC<IUpdateColorProps> = (props) => {
 	const onSubmit = (data: UpdateColorFormData) => {
 		reqSim(() => {
 			console.log(data)
-			toast("Technichal problems", {
+			toast("Technichal problemeows", {
 				position: "top-right",
 			})
 		})

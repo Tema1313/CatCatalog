@@ -9,7 +9,7 @@ import type { FC } from "react"
 
 interface ICatalogNavigayionProps {}
 
-export const CatalogNavigation: FC<ICatalogNavigayionProps> = (props) => {
+export const CatalogNavigation: FC<ICatalogNavigayionProps> = () => {
 	const navigate = useNavigate()
 	const menu: { title: string; url: keyof FileRoutesByPath }[] = [
 		{ title: "Цвета", url: "/catalogs/colors" },

@@ -71,10 +71,10 @@ export const Breeds: FC<ICoatsProps> = () => {
 					actionClick={() => {
 						reqSim(() => {
 							console.log(row)
-							toast("Technichal problemeows")
+							toast.error("Technichal problemeows")
 						})
 					}}
-					actionTitle="Delete"
+					actionTitle="Удалить"
 				>
 					<Button variant="link" className="cursor-pointer">
 						<Trash className="ml-2 h-4 w-4 " color="red" />

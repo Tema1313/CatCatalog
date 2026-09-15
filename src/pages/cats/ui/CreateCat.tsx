@@ -23,17 +23,19 @@ export const CreateCat = () => {
 			}}
 		>
 			<DialogTrigger className="cursor-pointer" asChild>
-				<Button title={"Добавить"} variant="ghost" className=" green p-2">
+				<Button title={"Добавить"} variant="ghost" className=" green ">
 					<Plus strokeWidth={4} size={24} color="#4082b7" />
 				</Button>
 			</DialogTrigger>
 
-			<DialogContent className="max-h-dvh gap-2 overflow-auto">
+			<DialogContent className="sm:max-w-[500px] w-full">
 				<DialogHeader>
 					<DialogTitle>Добавить котика</DialogTitle>
 					<DialogDescription />
 				</DialogHeader>
-				<CatForm mode="Create" />
+				<div className="-mx-4 px-4">
+					<CatForm mode="Create" />
+				</div>
 			</DialogContent>
 		</Dialog>
 	)

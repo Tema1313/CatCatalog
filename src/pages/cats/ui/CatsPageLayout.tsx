@@ -3,11 +3,11 @@ import type { FC } from "react"
 import { Cats } from "./Cats"
 import { Filters } from "./Filters"
 
-interface ICableProductsProps {
+interface ICatsPageLayoutProps {
 	catId?: number
 }
 
-export const CatsPageLayout: FC<ICableProductsProps> = (props) => {
+export const CatsPageLayout: FC<ICatsPageLayoutProps> = (props) => {
 	return (
 		<ResizablePanelGroup direction="horizontal" className="overflow-auto">
 			<ResizablePanel defaultSize={15} maxSize={50}>

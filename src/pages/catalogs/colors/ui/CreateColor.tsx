@@ -55,9 +55,7 @@ export const CreateColor: FC<ICreateColorProps> = () => {
 	const onSubmit = (data: CreateColorFormData) => {
 		reqSim(() => {
 			console.log(data)
-			toast("Technichal problemeows", {
-				position: "top-right",
-			})
+			toast.error("Technichal problemeows")
 		})
 	}
 

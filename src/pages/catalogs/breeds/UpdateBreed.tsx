@@ -26,6 +26,7 @@ interface IUpdateBreedProps {
 
 const UpdateBreedSchema = z.object({
 	name: z.string({ message: "Обязательное поле" }).min(1, { message: "Обязательное поле" }),
+	comment: z.string().optional(),
 })
 
 type UpdateBreedFormData = z.infer<typeof UpdateBreedSchema>
@@ -40,13 +41,14 @@ export const UpdateBreed: FC<IUpdateBreedProps> = (props) => {
 		resolver: zodResolver(UpdateBreedSchema),
 		defaultValues: {
 			name: props.breed.name || "",
+			comment: props.breed.comment || "",
 		},
 	})
 
 	const onSubmit = (data: UpdateBreedFormData) => {
 		reqSim(() => {
 			console.log(data)
-			toast("Technichal problemeows")
+			toast.error("Technichal problemeows")
 		}, 500)
 	}
 
@@ -82,6 +84,18 @@ export const UpdateBreed: FC<IUpdateBreedProps> = (props) => {
 											<Input {...field} />
 										</FormControl>
 										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="comment"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Комментарий</FormLabel>
+										<FormControl>
+											<Input {...field} />
+										</FormControl>
 									</FormItem>
 								)}
 							/>

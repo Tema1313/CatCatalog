@@ -23,6 +23,7 @@ interface ICreateCoatProps {}
 
 const CreateCoatSchema = z.object({
 	name: z.string({ message: "Обязательное поле" }).min(1, { message: "Обязательное поле" }),
+	comment: z.string().optional(),
 })
 
 type CreateCoatFormData = z.infer<typeof CreateCoatSchema>
@@ -40,9 +41,7 @@ export const CreateCoat: FC<ICreateCoatProps> = () => {
 	const onSubmit = (data: CreateCoatFormData) => {
 		reqSim(() => {
 			console.log(data)
-			toast("Technichal problemeows", {
-				position: "top-right",
-			})
+			toast.error("Technichal problemeows")
 		})
 	}
 
@@ -78,6 +77,18 @@ export const CreateCoat: FC<ICreateCoatProps> = () => {
 											<Input {...field} />
 										</FormControl>
 										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="comment"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Комментарий</FormLabel>
+										<FormControl>
+											<Input {...field} />
+										</FormControl>
 									</FormItem>
 								)}
 							/>

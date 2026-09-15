@@ -2,7 +2,7 @@ import { useNavigate, useSearch } from "@tanstack/react-router"
 import { useEffect, useState, type FC } from "react"
 import DateObject from "react-date-object"
 import { useCatsStore } from "../model/catsStore"
-import { useUpdateCableProducts } from "../hooks/useUpdateCableProducts"
+import { useUpdateCatList } from "../hooks/useUpdateCats"
 import {
 	flexRender,
 	getCoreRowModel,
@@ -33,20 +33,22 @@ import { CatPersonalInfoLayout } from "./cat-personal-info/CatPersonalInfoLayout
 import catBread from "@assets/bread-icons/catbread.png"
 import catNotBread from "@assets/bread-icons/catnobread.png"
 import { CreateCat } from "./CreateCat"
+import { toast } from "sonner"
+import { getRgb } from "@/pages/catalogs/colors/utils/getRgb"
 
-interface ICableProductsProps {
+interface ICatsProps {
 	catId?: number
 }
 
-export const Cats: FC<ICableProductsProps> = (props) => {
+export const Cats: FC<ICatsProps> = (props) => {
 	const navigate = useNavigate({ from: "/" })
 	const searchParams = useSearch({ from: "__root__" })
-	const { cats: cableProducts } = useCatsStore((store) => store)
-	const { updateCableProductList, isLoading: isCableProsuctsLoading } = useUpdateCableProducts()
+	const cats = useCatsStore((store) => store.cats)
+	const { updateCatList, isLoading: isCatListLoading } = useUpdateCatList()
 	const [loading, reqSim] = useRequestSimulation()
 
-	const currentCableProduct = cableProducts.find((product) => product.id === props.catId)
-	const isLoading = isCableProsuctsLoading || loading
+	const currentCat = cats.find((product) => product.id === props.catId)
+	const isLoading = isCatListLoading || loading
 
 	const [sorting, setSorting] = useState<SortingState>([])
 	const [pagination, setPagination] = useState({
@@ -87,14 +89,35 @@ export const Cats: FC<ICableProductsProps> = (props) => {
 					"Неизвестно"
 				return <div>{value}</div>
 			},
+			sortingFn: (rowA, rowB) => {
+				const nameA = catsTypeList.find((e) => e.id === rowA.original.locationTypeId)?.name ?? ""
+				const nameB = catsTypeList.find((e) => e.id === rowB.original.locationTypeId)?.name ?? ""
+				return nameA.localeCompare(nameB, "ru")
+			},
 		},
 		{
 			accessorKey: "colorId",
 			header: ({ column }) => <TableHeaderSortCell title="Цвет" {...column} />,
 			cell: ({ row }) => {
-				const value =
-					colorsList.find((elem) => elem.id === row.getValue<ICat["colorId"]>("colorId"))?.name || "Неизвестно"
-				return <div>{value}</div>
+				const color = colorsList.find((elem) => elem.id === row.getValue<ICat["colorId"]>("colorId"))
+				const colorName = color?.name || "Неизвестно"
+				const rgb = getRgb(color?.rgb || "")
+				return (
+					<div className="flex justify-start">
+						<div
+							style={{
+								backgroundColor: `rgb(${rgb?.r},${rgb?.g},${rgb?.b})`,
+							}}
+							className="border border-solid border-black rounded-full w-[14px] h-[14px] inline-block relative mt-1 mr-2"
+						/>
+						<span>{colorName}</span>
+					</div>
+				)
+			},
+			sortingFn: (rowA, rowB) => {
+				const nameA = colorsList.find((e) => e.id === rowA.original.colorId)?.name ?? ""
+				const nameB = colorsList.find((e) => e.id === rowB.original.colorId)?.name ?? ""
+				return nameA.localeCompare(nameB, "ru")
 			},
 		},
 		{
@@ -105,6 +128,11 @@ export const Cats: FC<ICableProductsProps> = (props) => {
 					coatsList.find((elem) => elem.id === row.getValue<ICat["coatTypeId"]>("coatTypeId"))?.name || "Неизвестно"
 				return <div>{value}</div>
 			},
+			sortingFn: (rowA, rowB) => {
+				const nameA = colorsList.find((e) => e.id === rowA.original.colorId)?.name ?? ""
+				const nameB = colorsList.find((e) => e.id === rowB.original.colorId)?.name ?? ""
+				return nameA.localeCompare(nameB, "ru")
+			},
 		},
 		{
 			accessorKey: "breedTypeId",
@@ -112,7 +140,13 @@ export const Cats: FC<ICableProductsProps> = (props) => {
 			cell: ({ row }) => {
 				const value =
 					breedsList.find((elem) => elem.id === row.getValue<ICat["breedTypeId"]>("breedTypeId"))?.name || "Неизвестно"
+
 				return <div>{value}</div>
+			},
+			sortingFn: (rowA, rowB) => {
+				const nameA = colorsList.find((e) => e.id === rowA.original.colorId)?.name ?? ""
+				const nameB = colorsList.find((e) => e.id === rowB.original.colorId)?.name ?? ""
+				return nameA.localeCompare(nameB, "ru")
 			},
 		},
 		{
@@ -163,7 +197,7 @@ export const Cats: FC<ICableProductsProps> = (props) => {
 	]
 
 	const table = useReactTable({
-		data: cableProducts,
+		data: cats,
 		columns,
 		state: {
 			sorting,
@@ -176,7 +210,7 @@ export const Cats: FC<ICableProductsProps> = (props) => {
 	})
 
 	useEffect(() => {
-		if (props.catId && cableProducts.length !== 0) {
+		if (props.catId && cats.length !== 0) {
 			const rows = table.getSortedRowModel().rows
 			const idx = rows.findIndex((row) => row.original.id === props.catId)
 			if (idx !== -1) {
@@ -190,10 +224,10 @@ export const Cats: FC<ICableProductsProps> = (props) => {
 				})
 			}
 		}
-	}, [props.catId, cableProducts])
+	}, [props.catId, cats])
 
 	useEffect(() => {
-		updateCableProductList()
+		updateCatList()
 	}, [searchParams])
 
 	useEffect(() => {
@@ -209,8 +243,8 @@ export const Cats: FC<ICableProductsProps> = (props) => {
 		<ResizablePanelGroup direction="horizontal">
 			<ResizablePanel defaultSize={props.catId ? 40 : 100}>
 				<div className="m-4">
-					<div className="flex justify-between">
-						<div className="mb-3 text-xl font-bold">Котеечная продукция</div>
+					<div className="flex justify-between items-center mb-3">
+						<div className="text-xl font-bold">Котеечная продукция</div>
 						<div className="flex">
 							<Button
 								variant="ghost"
@@ -219,9 +253,10 @@ export const Cats: FC<ICableProductsProps> = (props) => {
 								onClick={() => {
 									navigate({
 										search: () => ({
-											cableTypeId: undefined,
+											breedId: undefined,
+											catTypeId: undefined,
+											coatId: undefined,
 											colorId: undefined,
-											materialId: undefined,
 											name: undefined,
 											shortName: undefined,
 										}),
@@ -231,14 +266,22 @@ export const Cats: FC<ICableProductsProps> = (props) => {
 								<Eraser color="#f7bb88" />
 							</Button>
 							<CreateCat />
-							<Warning actionClick={() => {}} description="Вывести марку кабеля из использования?" actionTitle="Да">
-								<Button disabled={!currentCableProduct} title="Удалить" variant="ghost" className="cursor-pointer p-2">
+							<Warning
+								actionClick={() => {
+									reqSim(() => {
+										toast.error("Technichal problemeows")
+									})
+								}}
+								description="Удалить котика из списка?"
+								actionTitle="Да"
+							>
+								<Button disabled={!currentCat} title="Удалить" variant="ghost" className="cursor-pointer p-2">
 									<X color="red" strokeWidth={4} />
 								</Button>
 							</Warning>
 							<Button
 								onClick={() => {
-									updateCableProductList()
+									updateCatList()
 								}}
 								variant="ghost"
 								title="Обновить"
@@ -276,13 +319,15 @@ export const Cats: FC<ICableProductsProps> = (props) => {
 											table.getRowModel().rows.map((row) => (
 												<TableRow
 													onClick={() => {
-														navigate({
-															to: "/cat/$catId",
-															params: {
-																catId: String(row.original.id!),
-															},
-															search: (prev) => prev,
-														})
+														if (row.original.id) {
+															navigate({
+																to: "/cat/$catId",
+																params: {
+																	catId: String(row.original.id),
+																},
+																search: (prev) => prev,
+															})
+														}
 													}}
 													key={row.id}
 													data-state={row.getIsSelected() && "selected"}
@@ -316,7 +361,7 @@ export const Cats: FC<ICableProductsProps> = (props) => {
 											pageIndex: pageIndex,
 										}))
 									}}
-									countElemements={cableProducts.length}
+									countElements={cats.length}
 								/>
 							</div>
 						</div>

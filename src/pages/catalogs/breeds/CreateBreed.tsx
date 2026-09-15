@@ -40,9 +40,7 @@ export const CreateBreed: FC<ICreateBreedProps> = () => {
 	const onSubmit = (data: CreateBreedFormData) => {
 		reqSim(() => {
 			console.log(data)
-			toast("Technichal problemeows", {
-				position: "top-right",
-			})
+			toast.error("Technichal problemeows")
 		})
 	}
 

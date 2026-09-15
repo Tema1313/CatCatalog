@@ -523,7 +523,7 @@ export const CatForm: FC<ICatForm> = (props) => {
 														render={(props) => {
 															const selected = options.find((o) => o.value === field.value)
 															return (
-																<div {...props} className="flex w-full items-center gap-2">
+																<div {...props} className="flex w-full items-center gap-2 px-2.5">
 																	{selected && <img src={selected.img} alt="" className="h-5 w-5 shrink-0" />}
 																	<span className={selected ? "" : "text-muted-foreground"}>
 																		{selected ? (selected.value ? "Батон" : "Не батон") : ""}
@@ -557,7 +557,7 @@ export const CatForm: FC<ICatForm> = (props) => {
 							/>
 						</div>
 						{props.mode === "Create" ? (
-							<DialogFooter className="m-2">
+							<DialogFooter className="me-1">
 								<DialogClose asChild>
 									<Button disabled={isSubmitLoading} size={"sm"} className="cursor-pointer" variant="outline">
 										Отменить
@@ -568,7 +568,7 @@ export const CatForm: FC<ICatForm> = (props) => {
 								</Button>
 							</DialogFooter>
 						) : (
-							<div className="flex gap-3 justify-end m-2">
+							<div className="flex gap-3 justify-end mt-2">
 								<Button
 									size={"sm"}
 									className="cursor-pointer"

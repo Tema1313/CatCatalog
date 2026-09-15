@@ -3,9 +3,9 @@ import { create } from "zustand";
 
 interface IUseCatsStore {
     cats: ICat[];
-    setCats: (cableProducts: ICat[]) => void;
+    setCats: (cats: ICat[]) => void;
     catId: number | null;
-    setCatId: (cableProductId: number | null) => void;
+    setCatId: (catId: number | null) => void;
 }
 
 export const useCatsStore = create<IUseCatsStore>((set) => ({

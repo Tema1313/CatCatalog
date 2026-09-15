@@ -26,6 +26,7 @@ interface IUpdateCoatProps {
 
 const UpdateCoatSchema = z.object({
 	name: z.string({ message: "Обязательное поле" }).min(1, { message: "Обязательное поле" }),
+	comment: z.string().optional(),
 })
 
 type UpdateCoatFormData = z.infer<typeof UpdateCoatSchema>
@@ -40,13 +41,14 @@ export const UpdateCoat: FC<IUpdateCoatProps> = (props) => {
 		resolver: zodResolver(UpdateCoatSchema),
 		defaultValues: {
 			name: props.coat.name || "",
+			comment: props.coat.comment || "",
 		},
 	})
 
 	const onSubmit = (data: UpdateCoatFormData) => {
 		reqSim(() => {
 			console.log(data)
-			toast("Technichal problemeows")
+			toast.error("Technichal problemeows")
 		}, 500)
 	}
 
@@ -82,6 +84,18 @@ export const UpdateCoat: FC<IUpdateCoatProps> = (props) => {
 											<Input {...field} />
 										</FormControl>
 										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="comment"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Комментарий</FormLabel>
+										<FormControl>
+											<Input {...field} />
+										</FormControl>
 									</FormItem>
 								)}
 							/>

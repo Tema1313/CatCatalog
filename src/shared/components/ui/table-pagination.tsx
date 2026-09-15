@@ -8,7 +8,7 @@ interface Props<T> {
 	table: Table<T>
 	setPageIndex: (pageIndex: number) => void
 	pageIndex: number
-	countElemements?: number
+	countElements?: number
 	centerButtons?: number
 }
 

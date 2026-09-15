@@ -1,3 +1,4 @@
+import { getRgb } from "@/pages/catalogs/colors/utils/getRgb"
 import type { ICatBreedType, ICatLocationType, ICoatType, IColor } from "@/shared/api/model"
 import { catBreeds, catCoatTypes, catColors, catLocationType } from "@/shared/api/testdata"
 import { Button } from "@/shared/components/ui/button"
@@ -32,9 +33,10 @@ export const FiltersSchema = z.object({
 export type FilterFormData = z.infer<typeof FiltersSchema>
 
 export const Filters: FC<IFiltersProps> = () => {
-	const [, reqSim] = useRequestSimulation()
+	const [loading, reqSim] = useRequestSimulation()
 	const searchParams = useSearch({ from: "__root__" })
 	const navigate = useNavigate({ from: "/" })
+	const defaultOption: { id?: number; name?: string } = { id: -1, name: "Все" }
 
 	const [search, setSearch] = useState<{
 		color: string
@@ -52,10 +54,10 @@ export const Filters: FC<IFiltersProps> = () => {
 	const [catsTypeList, setCatsTypeList] = useState<ICatLocationType[]>([])
 	const [coatsList, setCoatsList] = useState<ICoatType[]>([])
 
-	const breeds: ICatBreedType[] = [{ id: -1, name: "Все" }, ...breedsList]
-	const colors: IColor[] = [{ id: -1, name: "Все" }, ...colorsList]
-	const catsTypes: ICatLocationType[] = [{ id: -1, name: "Все" }, ...catsTypeList]
-	const coats: ICoatType[] = [{ id: -1, name: "Все" }, ...coatsList]
+	const breeds: ICatBreedType[] = [defaultOption, ...breedsList]
+	const colors: IColor[] = [defaultOption, ...colorsList]
+	const catsTypes: ICatLocationType[] = [defaultOption, ...catsTypeList]
+	const coats: ICoatType[] = [defaultOption, ...coatsList]
 
 	const form = useForm<FilterFormData>({
 		mode: "onSubmit",
@@ -97,15 +99,15 @@ export const Filters: FC<IFiltersProps> = () => {
 		form.reset({
 			name: searchParams.name ? searchParams.name : "",
 			shortName: searchParams.shortName ? searchParams.shortName : "",
-			catTypeId: searchParams.catTypeId !== undefined ? String(searchParams.catTypeId) : "-1",
-			breedId: searchParams.breedId !== undefined ? String(searchParams.breedId) : "-1",
-			colorId: searchParams.colorId !== undefined ? String(searchParams.colorId) : "-1",
-			coatId: searchParams.coatId !== undefined ? String(searchParams.coatId) : "-1",
+			catTypeId: searchParams.catTypeId !== undefined && !loading ? String(searchParams.catTypeId) : "-1",
+			breedId: searchParams.breedId !== undefined && !loading ? String(searchParams.breedId) : "-1",
+			colorId: searchParams.colorId !== undefined && !loading ? String(searchParams.colorId) : "-1",
+			coatId: searchParams.coatId !== undefined && !loading ? String(searchParams.coatId) : "-1",
 		})
-	}, [searchParams])
+	}, [searchParams, loading])
 
 	return (
-		<div className="mx-2 my-4">
+		<div className={`mx-2 my-4 ${loading ? "pointer-events-none opacity-50" : ""}`}>
 			<Form {...form}>
 				<form className="space-y-2" onSubmit={form.handleSubmit(onSubmit)}>
 					<FormField
@@ -140,8 +142,9 @@ export const Filters: FC<IFiltersProps> = () => {
 						render={({ field }) => {
 							const selectedColor =
 								field.value === "-1"
-									? { id: "-1", name: "Все" }
+									? (defaultOption as unknown as IColor)
 									: colors.find((color) => String(color.id) === String(field.value))
+							const selectedColorRgb = getRgb(selectedColor?.rgb || "")
 
 							return (
 								<FormItem className="w-full min-w-0">
@@ -158,45 +161,71 @@ export const Filters: FC<IFiltersProps> = () => {
 										}}
 										items={colors}
 									>
-										<ComboboxInput
-											value={search.color || selectedColor?.name || ""}
-											onChange={(e) =>
-												setSearch((prev) => ({
-													...prev,
-													color: e.target.value,
-												}))
-											}
-											onBlur={(e) => {
-												setSearch((prev) => ({
-													...prev,
-													color: "",
-												}))
-												if (!e.target.value) {
-													field.onChange("-1")
+										<div className="relative w-full">
+											{selectedColorRgb && !search.color && (
+												<div className="absolute left-3 top-1/2 -translate-y-1/2 z-10">
+													<div
+														style={{
+															backgroundColor: `rgb(${selectedColorRgb?.r},${selectedColorRgb?.g},${selectedColorRgb?.b})`,
+														}}
+														className="border border-solid border-black rounded-full w-[14px] h-[14px]"
+													/>
+												</div>
+											)}
+											<ComboboxInput
+												value={search.color || selectedColor?.name || ""}
+												onChange={(e) =>
+													setSearch((prev) => ({
+														...prev,
+														color: e.target.value,
+													}))
 												}
-											}}
-										/>
+												onBlur={(e) => {
+													setSearch((prev) => ({
+														...prev,
+														color: "",
+													}))
+													if (!e.target.value) {
+														field.onChange("-1")
+													}
+												}}
+												className={selectedColorRgb && !search.color ? "pl-5" : ""}
+											/>
+										</div>
 
 										<ComboboxContent className="pointer-events-auto" onWheel={(e) => e.stopPropagation()}>
 											<ComboboxEmpty>Цвет не найдены</ComboboxEmpty>
 
 											<ComboboxList>
-												{(item: IColor) => (
-													<ComboboxItem
-														key={item.id}
-														value={String(item.id)}
-														onSelect={() => {
-															field.onChange(String(item.id))
-															setSearch((prev) => ({
-																...prev,
-																color: "",
-															}))
-														}}
-														data-selected={String(item.id) === String(field.value)}
-													>
-														{item.name}
-													</ComboboxItem>
-												)}
+												{(color: IColor) => {
+													const rgb = getRgb(color.rgb || "")
+													return (
+														<ComboboxItem
+															key={color.id}
+															value={String(color.id)}
+															onSelect={() => {
+																field.onChange(String(color.id))
+																setSearch((prev) => ({
+																	...prev,
+																	color: "",
+																}))
+															}}
+															data-selected={String(color.id) === String(field.value)}
+														>
+															<div className="flex content-center justify-center">
+																{color.id !== -1 && (
+																	<div
+																		style={{
+																			backgroundColor: `rgb(${rgb?.r},${rgb?.g},${rgb?.b})`,
+																		}}
+																		className="border border-solid border-black rounded-full w-[14px] h-[14px] inline-block relative mt-1 mr-2"
+																	/>
+																)}
+																<span>{color.name}</span>
+															</div>
+														</ComboboxItem>
+													)
+												}}
 											</ComboboxList>
 										</ComboboxContent>
 									</Combobox>
@@ -331,7 +360,7 @@ export const Filters: FC<IFiltersProps> = () => {
 															field.onChange(String(item.id))
 															setSearch((prev) => ({
 																...prev,
-																cableType: "",
+																catType: "",
 															}))
 														}}
 														data-selected={String(item.id) === String(field.value)}

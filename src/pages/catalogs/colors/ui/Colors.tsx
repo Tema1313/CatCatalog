@@ -29,6 +29,7 @@ import { toast } from "sonner"
 import { TablePagination } from "@/shared/components/ui/table-pagination"
 import { CreateColor } from "./CreateColor"
 import { catColors } from "@/shared/api/testdata"
+import { getRgb } from "../utils/getRgb"
 
 export interface IColorsProps {}
 
@@ -56,6 +57,21 @@ export const Colors: FC<IColorsProps> = () => {
 		{
 			accessorKey: "rgb",
 			header: ({ column }) => <TableHeaderSortCell title="Цвет(rgb)" {...column} />,
+			cell: ({ cell }) => {
+				const cellValue = cell.getValue() as string
+				const rgb = getRgb(cellValue)
+				return (
+					<div className="flex justify-start">
+						<div
+							style={{
+								backgroundColor: `rgb(${rgb?.r},${rgb?.g},${rgb?.b})`,
+							}}
+							className="border border-solid border-black rounded-full w-[14px] h-[14px] inline-block relative mt-1 mr-2"
+						/>
+						<span>{cellValue}</span>
+					</div>
+				)
+			},
 		},
 		{
 			accessorKey: "comment",
@@ -81,10 +97,10 @@ export const Colors: FC<IColorsProps> = () => {
 					actionClick={() => {
 						reqSim(() => {
 							console.log("trying to delete the color...")
-							toast("Error delete")
+							toast.error("Error delete")
 						})
 					}}
-					actionTitle="delete"
+					actionTitle="Удалить"
 				>
 					<Button variant="link" className="cursor-pointer">
 						<Trash className="ml-2 h-4 w-4 " color="red" />

@@ -39,7 +39,7 @@ export const CatPersonalInfoLayout: FC<ICatPersonalInfoLayoutProps> = (props) =>
 							overflow: "auto",
 						}}
 					>
-						<div className="m-3">
+						<div className="m-4">
 							<CatForm mode="Update" cat={cat} />
 						</div>
 					</ResizablePanel>

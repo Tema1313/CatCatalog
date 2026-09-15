@@ -3,12 +3,12 @@ import { useCatsStore } from "../model/catsStore";
 import { useRequestSimulation } from "@/shared/hooks/useRequestSimulation";
 import { getCats } from "@/shared/api/GET/getCats";
 
-export const useUpdateCableProducts = () => {
+export const useUpdateCatList = () => {
     const { setCats } = useCatsStore((store) => store);
     const searchParams = useSearch({ from: "__root__" });
     const [loading, reqSim] = useRequestSimulation()
 
-    const updateCableProductList = () => {
+    const updateCatList = () => {
         return reqSim(() => {
             return getCats({
                 breedId: searchParams.breedId ? Number(searchParams.breedId) : undefined,
@@ -23,5 +23,5 @@ export const useUpdateCableProducts = () => {
         });
     };
 
-    return { updateCableProductList, isLoading: loading };
+    return { updateCatList, isLoading: loading };
 };

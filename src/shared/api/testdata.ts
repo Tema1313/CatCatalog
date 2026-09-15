@@ -177,7 +177,7 @@ const cats: ICat[] = [
         bigeyedness: 10,
         stars: 5,
         photos: [
-            "https://ik.imagekit.io/tema13/Luna/photo1.jpg",
+            "https://ik.imagekit.io/tema13/Luna/photo1.jpeg",
             "https://ik.imagekit.io/tema13/Luna/photo2.jpg",
             "https://ik.imagekit.io/tema13/Luna/photo3.jpg"
         ]
@@ -217,7 +217,12 @@ const cats: ICat[] = [
         softness: "очень мягкая",
         breadness: true,
         bigeyedness: 9,
-        stars: 5
+        stars: 5,
+        photos: [
+            "https://ik.imagekit.io/tema13/Vasilisa/photo1.jpg",
+            "https://ik.imagekit.io/tema13/Vasilisa/photo2.jpg",
+            "https://ik.imagekit.io/tema13/Vasilisa/photo3.jpg"
+        ]
     },
     {
         id: 9,
@@ -229,11 +234,15 @@ const cats: ICat[] = [
         date: "2025-04-02",
         colorId: 15,
         locationTypeId: 1,
-        breedTypeId: 11,
+        breedTypeId: 12,
         softness: "средняя",
         breadness: true,
         bigeyedness: 7,
-        stars: 5
+        stars: 5,
+        photos: [
+            "https://ik.imagekit.io/tema13/Persik/photo1.jpg",
+            "https://ik.imagekit.io/tema13/Persik/photo2.jpg",
+        ]
     },
     {
         id: 10,
@@ -245,11 +254,16 @@ const cats: ICat[] = [
         date: "2025-01-30",
         colorId: 1,
         locationTypeId: 2,
-        breedTypeId: 12,
+        breedTypeId: 11,
         softness: "жёсткая",
         breadness: false,
         bigeyedness: 6,
-        stars: 5
+        stars: 5,
+        photos: [
+            "https://ik.imagekit.io/tema13/Chernish/photo1.jpg",
+            "https://ik.imagekit.io/tema13/Chernish/photo2.jpg",
+            "https://ik.imagekit.io/tema13/Chernish/photo3.jpg"
+        ]
     },
     {
         id: 11,
@@ -265,7 +279,12 @@ const cats: ICat[] = [
         softness: "мягкая",
         breadness: true,
         bigeyedness: 8,
-        stars: 5
+        stars: 5,
+        photos: [
+            "https://ik.imagekit.io/tema13/Markis/photo1.jpg",
+            "https://ik.imagekit.io/tema13/Markis/photo2.jpg",
+            "https://ik.imagekit.io/tema13/Markis/photo3.jpg"
+        ]
     },
     {
         id: 12,
@@ -281,7 +300,12 @@ const cats: ICat[] = [
         softness: "без шерсти",
         breadness: false,
         bigeyedness: 10,
-        stars: 5
+        stars: 5,
+        photos: [
+            "https://ik.imagekit.io/tema13/Asya/photo1.jpg",
+            "https://ik.imagekit.io/tema13/Asya/photo2.jpg",
+            "https://ik.imagekit.io/tema13/Asya/photo3.jpeg"
+        ]
     },
     {
         id: 13,
@@ -297,7 +321,11 @@ const cats: ICat[] = [
         softness: "очень мягкая",
         breadness: true,
         bigeyedness: 7,
-        stars: 5
+        stars: 5,
+        photos: [
+            "https://ik.imagekit.io/tema13/Leopold/photo1.jpg",
+            "https://ik.imagekit.io/tema13/Leopold/photo2.jpg",
+        ]
     },
     {
         id: 14,
@@ -313,7 +341,12 @@ const cats: ICat[] = [
         softness: "средняя",
         breadness: false,
         bigeyedness: 6,
-        stars: 5
+        stars: 5,
+        photos: [
+            "https://ik.imagekit.io/tema13/Kleo/photo1.jpg",
+            "https://ik.imagekit.io/tema13/Kleo/photo2.jpg",
+            "https://ik.imagekit.io/tema13/Kleo/photo3.jpg"
+        ]
     },
     {
         id: 15,
@@ -329,7 +362,12 @@ const cats: ICat[] = [
         softness: "мягкая",
         breadness: true,
         bigeyedness: 8,
-        stars: 5
+        stars: 5,
+        photos: [
+            "https://ik.imagekit.io/tema13/Pushok/photo1.jpg",
+            "https://ik.imagekit.io/tema13/Pushok/photo2.jpg",
+            "https://ik.imagekit.io/tema13/Pushok/photo3.jpg"
+        ]
     },
     {
         id: 16,
@@ -345,7 +383,11 @@ const cats: ICat[] = [
         softness: "жёсткая",
         breadness: false,
         bigeyedness: 5,
-        stars: 5
+        stars: 5,
+        photos: [
+            "https://ik.imagekit.io/tema13/Jorik/photo1.jpg",
+            "https://ik.imagekit.io/tema13/Jorik/photo2.jpg"
+        ]
     },
     {
         id: 17,
@@ -361,7 +403,11 @@ const cats: ICat[] = [
         softness: "очень мягкая",
         breadness: true,
         bigeyedness: 9,
-        stars: 5
+        stars: 5,
+        photos: [
+            "https://ik.imagekit.io/tema13/Noch/photo1.jpg",
+            "https://ik.imagekit.io/tema13/Noch/photo2.jpg"
+        ]
     },
     {
         id: 18,
@@ -377,7 +423,12 @@ const cats: ICat[] = [
         softness: "средняя",
         breadness: true,
         bigeyedness: 7,
-        stars: 5
+        stars: 5,
+        photos: [
+            "https://ik.imagekit.io/tema13/Simba/photo1.jpg",
+            "https://ik.imagekit.io/tema13/Simba/photo2.jpg",
+            "https://ik.imagekit.io/tema13/Simba/photo3.jpg"
+        ]
     },
     {
         id: 19,
@@ -393,7 +444,11 @@ const cats: ICat[] = [
         softness: "мягкая",
         breadness: false,
         bigeyedness: 8,
-        stars: 5
+        stars: 5,
+        photos: [
+            "https://ik.imagekit.io/tema13/Dusia/photo1.jpg",
+            "https://ik.imagekit.io/tema13/Dusia/photo2.jpg"
+        ]
     },
     {
         id: 20,
@@ -409,7 +464,11 @@ const cats: ICat[] = [
         softness: "без шерсти",
         breadness: true,
         bigeyedness: 10,
-        stars: 5
+        stars: 5,
+        photos: [
+            "https://ik.imagekit.io/tema13/Tom/photo1.jpg",
+            "https://ik.imagekit.io/tema13/Tom/photo2.jpg"
+        ]
     }
 ];
 

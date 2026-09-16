@@ -80,15 +80,11 @@ export const useCatForm = (props: ICatForm) => {
         setIsSubmitLoading(true)
         reqSim(() => {
             if (Number(data.stars) !== 5) {
-                toast("Котиков с рейтингом менее 5 звезд не существует! Проверьте данные", {
-                    position: "top-right",
-                })
+                toast.error("Котиков с рейтингом менее 5 звезд не существует! Проверьте данные")
                 return
             } else {
                 console.log(data)
-                toast("Technichal problemeows", {
-                    position: "top-right",
-                })
+                toast.error("Technichal problemeows")
             }
         }, 2000).finally(() => {
             setIsSubmitLoading(false)

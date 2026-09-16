@@ -23,7 +23,7 @@ export const Navigation: FC<INavigationProps> = () => {
 							onClick={() => {
 								navigate({ to: "/" })
 							}}
-							className="align-middle flex flex-row cursor-pointer "
+							className="align-middle flex flex-row cursor-pointer font-medium"
 						>
 							Котики
 						</NavigationMenuLink>

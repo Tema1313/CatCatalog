@@ -22,7 +22,7 @@ import z from "zod"
 interface ICreateCoatProps {}
 
 const CreateCoatSchema = z.object({
-	name: z.string({ message: "Обязательное поле" }).min(1, { message: "Обязательное поле" }),
+	name: z.string({ message: "Required field" }).min(1, { message: "Required field" }),
 	comment: z.string().optional(),
 })
 

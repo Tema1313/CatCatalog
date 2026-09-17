@@ -22,16 +22,16 @@ export interface ICatForm {
 const CatFormSchema = z.object({
     name: z.string().optional(),
     shortName: z.string().optional(),
-    mass: z.string({ message: "Обязательное поле" }).min(1, { message: "Обязательное поле" }),
-    coatTypeId: z.string({ message: "Обязательное поле" }).min(1, { message: "Обязательное поле" }),
-    colorId: z.string({ message: "Обязательное поле" }).min(1, { message: "Обязательное поле" }),
-    breedTypeId: z.string({ message: "Обязательное поле" }).min(1, { message: "Обязательное поле" }),
-    locationTypeId: z.string({ message: "Обязательное поле" }).min(1, { message: "Обязательное поле" }),
+    mass: z.string({ message: "Required field" }).min(1, { message: "Required field" }),
+    coatTypeId: z.string({ message: "Required field" }).min(1, { message: "Required field" }),
+    colorId: z.string({ message: "Required field" }).min(1, { message: "Required field" }),
+    breedTypeId: z.string({ message: "Required field" }).min(1, { message: "Required field" }),
+    locationTypeId: z.string({ message: "Required field" }).min(1, { message: "Required field" }),
     softness: z.string({ message: "Укажите мягкость котика" }),
     breadness: z.boolean().optional(),
-    bigeyedness: z.string({ message: "Обязательное поле" }).min(1, { message: "Обязательное поле" }),
+    bigeyedness: z.string({ message: "Required field" }).min(1, { message: "Required field" }),
     owner: z.string().optional(),
-    stars: z.string({ message: "Обязательное поле" }).min(1, { message: "Обязательное поле" })
+    stars: z.string({ message: "Required field" }).min(1, { message: "Required field" })
 })
 
 type CatFormData = z.infer<typeof CatFormSchema>

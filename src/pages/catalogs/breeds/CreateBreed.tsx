@@ -1,3 +1,4 @@
+import { useLanguage } from "@/i18n/hooks/useLanguage"
 import { Button } from "@/shared/components/ui/button"
 import {
 	Dialog,
@@ -22,7 +23,8 @@ import z from "zod"
 interface ICreateBreedProps {}
 
 const CreateBreedSchema = z.object({
-	name: z.string({ message: "Обязательное поле" }).min(1, { message: "Обязательное поле" }),
+	name: z.string({ message: "Required field" }).min(1, { message: "Required field" }),
+	comment: z.string().optional(),
 })
 
 type CreateBreedFormData = z.infer<typeof CreateBreedSchema>
@@ -30,6 +32,7 @@ type CreateBreedFormData = z.infer<typeof CreateBreedSchema>
 export const CreateBreed: FC<ICreateBreedProps> = () => {
 	const [open, setOpen] = useState<boolean>(false)
 	const [loading, reqSim] = useRequestSimulation()
+	const { t } = useLanguage()
 
 	const form = useForm<CreateBreedFormData>({
 		mode: "onSubmit",
@@ -40,7 +43,7 @@ export const CreateBreed: FC<ICreateBreedProps> = () => {
 	const onSubmit = (data: CreateBreedFormData) => {
 		reqSim(() => {
 			console.log(data)
-			toast.error("Technichal problemeows")
+			toast.error(t("common.technichal-problems"))
 		})
 	}
 
@@ -53,14 +56,14 @@ export const CreateBreed: FC<ICreateBreedProps> = () => {
 				if (!open) form.reset()
 			}}
 		>
-			<DialogTrigger title="Добавление" className="cursor-pointer" asChild>
-				<Button size="sm" variant="ghost" className="ml-auto green" title="Добавить">
+			<DialogTrigger title={t("common.add")} className="cursor-pointer" asChild>
+				<Button size="sm" variant="ghost" className="ml-auto green">
 					<Plus color="#4082b7" />
 				</Button>
 			</DialogTrigger>
 			<DialogContent>
 				<DialogHeader className="gap-0">
-					<DialogTitle>Добавить породу</DialogTitle>
+					<DialogTitle>{t("catalogs.breeds.add-breed")}</DialogTitle>
 					<DialogDescription />
 				</DialogHeader>
 				<div>
@@ -71,7 +74,7 @@ export const CreateBreed: FC<ICreateBreedProps> = () => {
 								name="name"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Название породы</FormLabel>
+										<FormLabel>{t("catalogs.breeds.breed-name")}</FormLabel>
 										<FormControl>
 											<Input {...field} />
 										</FormControl>
@@ -79,14 +82,26 @@ export const CreateBreed: FC<ICreateBreedProps> = () => {
 									</FormItem>
 								)}
 							/>
+							<FormField
+								control={form.control}
+								name="comment"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>{t("table-column-names.comment")}</FormLabel>
+										<FormControl>
+											<Input {...field} />
+										</FormControl>
+									</FormItem>
+								)}
+							/>
 							<DialogFooter>
 								<DialogClose asChild>
 									<Button size={"sm"} className="cursor-pointer" variant="outline">
-										Отменить
+										{t("common.cancel")}
 									</Button>
 								</DialogClose>
 								<Button size={"sm"} className="cursor-pointer" type="submit">
-									{loading ? <Loader2 className="m-2 animate-spin justify-center " /> : "Сохранить"}
+									{loading ? <Loader2 className="m-2 animate-spin justify-center " /> : t("common.save")}
 								</Button>
 							</DialogFooter>
 						</form>

@@ -1,3 +1,4 @@
+import { useLanguage } from "@/i18n/hooks/useLanguage"
 import { getRgb } from "@/pages/catalogs/colors/utils/getRgb"
 import type { ICatBreedType, ICatLocationType, ICoatType, IColor } from "@/shared/api/model"
 import { catBreeds, catCoatTypes, catColors, catLocationType } from "@/shared/api/testdata"
@@ -36,7 +37,8 @@ export const Filters: FC<IFiltersProps> = () => {
 	const [loading, reqSim] = useRequestSimulation()
 	const searchParams = useSearch({ from: "__root__" })
 	const navigate = useNavigate({ from: "/" })
-	const defaultOption: { id?: number; name?: string } = { id: -1, name: "Все" }
+	const { t } = useLanguage()
+	const defaultOption: { id?: number; name?: string } = { id: -1, name: t("filters.all") }
 
 	const [search, setSearch] = useState<{
 		color: string
@@ -115,7 +117,7 @@ export const Filters: FC<IFiltersProps> = () => {
 						name="name"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Имя</FormLabel>
+								<FormLabel>{t("filters.name")}</FormLabel>
 								<FormControl>
 									<Input {...field} />
 								</FormControl>
@@ -128,7 +130,7 @@ export const Filters: FC<IFiltersProps> = () => {
 						name="shortName"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Короткое имя</FormLabel>
+								<FormLabel>{t("filters.short-name")}</FormLabel>
 								<FormControl>
 									<Input {...field} />
 								</FormControl>
@@ -148,7 +150,7 @@ export const Filters: FC<IFiltersProps> = () => {
 
 							return (
 								<FormItem className="w-full min-w-0">
-									<FormLabel>Цвет</FormLabel>
+									<FormLabel>{t("filters.color")}</FormLabel>
 
 									<Combobox
 										value={field.value ? String(field.value) : undefined}
@@ -194,7 +196,7 @@ export const Filters: FC<IFiltersProps> = () => {
 										</div>
 
 										<ComboboxContent className="pointer-events-auto" onWheel={(e) => e.stopPropagation()}>
-											<ComboboxEmpty>Цвет не найдены</ComboboxEmpty>
+											<ComboboxEmpty>{t("filters.errors.no-colors-found")}</ComboboxEmpty>
 
 											<ComboboxList>
 												{(color: IColor) => {
@@ -241,12 +243,12 @@ export const Filters: FC<IFiltersProps> = () => {
 						render={({ field }) => {
 							const selectedCoat =
 								field.value === "-1"
-									? { id: "-1", name: "Все" }
+									? (defaultOption as unknown as ICoatType)
 									: coats.find((coat) => String(coat.id) === String(field.value))
 
 							return (
 								<FormItem>
-									<FormLabel>Шерстка</FormLabel>
+									<FormLabel>{t("filters.fluff")}</FormLabel>
 									<Combobox
 										value={field.value ? String(field.value) : undefined}
 										onValueChange={(val) => {
@@ -278,7 +280,7 @@ export const Filters: FC<IFiltersProps> = () => {
 										/>
 
 										<ComboboxContent className="pointer-events-auto" onWheel={(e) => e.stopPropagation()}>
-											<ComboboxEmpty>Шерстки не найдены</ComboboxEmpty>
+											<ComboboxEmpty>{t("filters.errors.no-coats-found")}</ComboboxEmpty>
 
 											<ComboboxList>
 												{(item: ICoatType) => (
@@ -312,12 +314,12 @@ export const Filters: FC<IFiltersProps> = () => {
 						render={({ field }) => {
 							const selectedCatType =
 								field.value === "-1"
-									? { id: "-1", name: "Все" }
+									? (defaultOption as unknown as ICatLocationType)
 									: catsTypes.find((catType) => String(catType.id) === String(field.value))
 
 							return (
 								<FormItem>
-									<FormLabel>Тип котика</FormLabel>
+									<FormLabel>{t("filters.kitty-type")}</FormLabel>
 									<Combobox
 										value={field.value ? String(field.value) : undefined}
 										onValueChange={(val) => {
@@ -349,7 +351,7 @@ export const Filters: FC<IFiltersProps> = () => {
 										/>
 
 										<ComboboxContent className="pointer-events-auto" onWheel={(e) => e.stopPropagation()}>
-											<ComboboxEmpty>{`Такого типа котика не существует(`}</ComboboxEmpty>
+											<ComboboxEmpty>{t("filters.errors.no-type-cat-found")}</ComboboxEmpty>
 
 											<ComboboxList>
 												{(item: ICatLocationType) => (
@@ -383,12 +385,12 @@ export const Filters: FC<IFiltersProps> = () => {
 						render={({ field }) => {
 							const selectedBreedType =
 								field.value === "-1"
-									? { id: "-1", name: "Все" }
+									? (defaultOption as unknown as ICatBreedType)
 									: breeds.find((breed) => String(breed.id) === String(field.value))
 
 							return (
 								<FormItem>
-									<FormLabel>Порода</FormLabel>
+									<FormLabel>{t("filters.breed")}</FormLabel>
 									<Combobox
 										value={field.value ? String(field.value) : undefined}
 										onValueChange={(val) => {
@@ -420,7 +422,7 @@ export const Filters: FC<IFiltersProps> = () => {
 										/>
 
 										<ComboboxContent className="pointer-events-auto" onWheel={(e) => e.stopPropagation()}>
-											<ComboboxEmpty>{`Такой породы котика не существует(`}</ComboboxEmpty>
+											<ComboboxEmpty>{t("filters.errors.no-breed-cat-found")}</ComboboxEmpty>
 
 											<ComboboxList>
 												{(item: ICatLocationType) => (
@@ -449,7 +451,7 @@ export const Filters: FC<IFiltersProps> = () => {
 						}}
 					/>
 					<Button type="submit" className="w-full">
-						Применить
+						{t("filters.apply")}
 					</Button>
 				</form>
 			</Form>

@@ -30,12 +30,14 @@ import { TablePagination } from "@/shared/components/ui/table-pagination"
 import { CreateColor } from "./CreateColor"
 import { catColors } from "@/shared/api/testdata"
 import { getRgb } from "../utils/getRgb"
+import { useLanguage } from "@/i18n/hooks/useLanguage"
 
 export interface IColorsProps {}
 
 export const Colors: FC<IColorsProps> = () => {
 	const [colors, setColors] = useState<IColor[]>([])
 	const [loading, reqSim] = useRequestSimulation()
+	const { t } = useLanguage()
 
 	useEffect(() => {
 		reqSim(() => {
@@ -52,11 +54,11 @@ export const Colors: FC<IColorsProps> = () => {
 	const columns: ColumnDef<IColor>[] = [
 		{
 			accessorKey: "name",
-			header: ({ column }) => <TableHeaderSortCell title="Цвет" {...column} />,
+			header: ({ column }) => <TableHeaderSortCell title={t("table-column-names.color")} {...column} />,
 		},
 		{
 			accessorKey: "rgb",
-			header: ({ column }) => <TableHeaderSortCell title="Цвет(rgb)" {...column} />,
+			header: ({ column }) => <TableHeaderSortCell title={t("catalogs.colors.rgb")} {...column} />,
 			cell: ({ cell }) => {
 				const cellValue = cell.getValue() as string
 				const rgb = getRgb(cellValue)
@@ -75,11 +77,11 @@ export const Colors: FC<IColorsProps> = () => {
 		},
 		{
 			accessorKey: "comment",
-			header: ({ column }) => <TableHeaderSortCell title="Комментарий" {...column} />,
+			header: ({ column }) => <TableHeaderSortCell title={t("table-column-names.comment")} {...column} />,
 		},
 		{
 			accessorKey: "date",
-			header: ({ column }) => <TableHeaderSortCell title="Дата модификации" {...column} />,
+			header: ({ column }) => <TableHeaderSortCell title={t("table-column-names.date-modified")} {...column} />,
 			cell: ({ row }) => {
 				return <div>{new DateObject(row.getValue<IColor["date"]>("date") || "").format("DD.MM.YYYY")}</div>
 			},
@@ -97,10 +99,10 @@ export const Colors: FC<IColorsProps> = () => {
 					actionClick={() => {
 						reqSim(() => {
 							console.log("trying to delete the color...")
-							toast.error("Error delete")
+							toast.error(t("common.technichal-problems"))
 						})
 					}}
-					actionTitle="Удалить"
+					actionTitle={t("common.delete")}
 				>
 					<Button variant="link" className="cursor-pointer">
 						<Trash className="ml-2 h-4 w-4 " color="red" />
@@ -126,12 +128,12 @@ export const Colors: FC<IColorsProps> = () => {
 	return (
 		<div className="m-4">
 			<div className="flex justify-between content-center">
-				<div className="mb-3 text-xl font-bold">Цвета котиков</div>
+				<div className="mb-3 text-xl font-bold">{t("catalogs.colors.kitty-colors")}</div>
 				<div className="flex">
 					<div>
 						<Button
 							onClick={() => {
-								// Если бы использовался tanstack-query, то  тут можно было бы просто инвалидировать запрос
+								//If we used tanstack-query, we could invalidate a request
 								reqSim(() => {
 									setColors(catColors)
 								}, 2000)
@@ -139,7 +141,7 @@ export const Colors: FC<IColorsProps> = () => {
 							size="sm"
 							variant="ghost"
 							className="ml-auto green cursor-pointer"
-							title="Обновить"
+							title={t("common.update")}
 						>
 							<RefreshCcw color="#4082b7" />
 						</Button>
@@ -184,7 +186,7 @@ export const Colors: FC<IColorsProps> = () => {
 								) : (
 									<TableRow>
 										<TableCell colSpan={columns.length} className="h-24 text-center">
-											Нет данных
+											{t("common.no-data")}
 										</TableCell>
 									</TableRow>
 								)}

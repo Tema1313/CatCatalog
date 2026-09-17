@@ -20,11 +20,12 @@ import { RgbColorPicker } from "react-colorful"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import z, { type ZodType } from "zod"
+import { useLanguage } from "@/i18n/hooks/useLanguage"
 
 interface ICreateColorProps {}
 
 const CreateColorSchema = z.object({
-	name: z.string({ message: "Обязательное поле" }).min(1, { message: "Обязательное поле" }),
+	name: z.string({ message: "Required field" }).min(1, { message: "Required field" }),
 	comment: z.string().optional(),
 	color: z.object({
 		r: z.number(),
@@ -38,6 +39,7 @@ type CreateColorFormData = z.infer<typeof CreateColorSchema>
 export const CreateColor: FC<ICreateColorProps> = () => {
 	const [open, setOpen] = useState<boolean>(false)
 	const [loading, reqSim] = useRequestSimulation()
+	const { t } = useLanguage()
 
 	const form = useForm<CreateColorFormData>({
 		mode: "onSubmit",
@@ -55,7 +57,7 @@ export const CreateColor: FC<ICreateColorProps> = () => {
 	const onSubmit = (data: CreateColorFormData) => {
 		reqSim(() => {
 			console.log(data)
-			toast.error("Technichal problemeows")
+			toast.error(t("common.technichal-problems"))
 		})
 	}
 
@@ -68,14 +70,14 @@ export const CreateColor: FC<ICreateColorProps> = () => {
 				if (!open) form.reset()
 			}}
 		>
-			<DialogTrigger title="Добавление" className="cursor-pointer" asChild>
-				<Button size="sm" variant="ghost" className="ml-auto green" title="Добавить">
+			<DialogTrigger title={t("common.add")} className="cursor-pointer" asChild>
+				<Button size="sm" variant="ghost" className="ml-auto green">
 					<Plus color="#4082b7" />
 				</Button>
 			</DialogTrigger>
 			<DialogContent>
 				<DialogHeader className="gap-0">
-					<DialogTitle>Добавить цвет котэка</DialogTitle>
+					<DialogTitle>{t("catalogs.colors.add-kitty-color")}</DialogTitle>
 					<DialogDescription />
 				</DialogHeader>
 				<div>
@@ -86,7 +88,7 @@ export const CreateColor: FC<ICreateColorProps> = () => {
 								name="name"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Цвет</FormLabel>
+										<FormLabel>{t("table-column-names.color")}</FormLabel>
 										<FormControl>
 											<Input {...field} />
 										</FormControl>
@@ -165,7 +167,7 @@ export const CreateColor: FC<ICreateColorProps> = () => {
 								name="comment"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Комментарий</FormLabel>
+										<FormLabel>{t("table-column-names.comment")}</FormLabel>
 										<FormControl>
 											<Input {...field} />
 										</FormControl>
@@ -176,11 +178,11 @@ export const CreateColor: FC<ICreateColorProps> = () => {
 							<DialogFooter>
 								<DialogClose asChild>
 									<Button disabled={loading} size={"sm"} className="cursor-pointer" variant="outline">
-										Отменить
+										{t("common.cancel")}
 									</Button>
 								</DialogClose>
 								<Button disabled={loading} size={"sm"} className="cursor-pointer" type="submit">
-									{loading ? <Loader2 className="m-2 animate-spin justify-center " /> : "Сохранить"}
+									{loading ? <Loader2 className="m-2 animate-spin justify-center " /> : t("common.save")}
 								</Button>
 							</DialogFooter>
 						</form>

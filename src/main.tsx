@@ -5,6 +5,8 @@ import { createRouter, RouterProvider } from "@tanstack/react-router"
 import { routeTree } from "./app/router/routeTree.gen"
 import { Toaster } from "./shared/components/ui/sonner"
 
+import "./i18n"
+
 // Create a new router instance
 const router = createRouter({ routeTree })
 

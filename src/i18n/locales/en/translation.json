@@ -1,0 +1,101 @@
+{
+    "navbar": {
+        "kitty-accounting": "Kitty accounting",
+        "kitties": "Kitties",
+        "exit": "Exit",
+        "colors": "Colors",
+        "breeds": "Breeds",
+        "coats": "Coats",
+        "catalogs": "Catalogs"
+    },
+    "filters": {
+        "name": "Name",
+        "short-name": "Short name",
+        "color": "Color",
+        "fluff": "Fluuf",
+        "kitty-type": "Kitty type",
+        "breed": "Breed",
+        "apply": "Apply",
+        "all": "All",
+        "errors": {
+            "no-colors-found": "No colors found",
+            "no-coats-found": "No coats found",
+            "no-type-cat-found": "No such kitty type exists(",
+            "no-breed-cat-found": "No such breed exists("
+        }
+    },
+    "catalogs": {
+        "colors": {
+            "kitty-colors": "Kitty colors",
+            "rgb": "rgb",
+            "add-kitty-color": "Add kitty color",
+            "change-color": "Change color"
+        },
+        "breeds": {
+            "cat-breeds": "Breeds",
+            "search-by-name": "Search by breed name...",
+            "no-breeds": "No breeds...",
+            "add-breed": "Add breed",
+            "breed-name": "Breed name",
+            "change-breed": "Change breed"
+        },
+        "fluff": {
+            "types-of-fluff": "Types of fluff",
+            "search-by-name": "Search by fluff name...",
+            "no-fluff": "No fluff...",
+            "change-fluff": "Change fluff"
+        }
+    },
+    "cats": {
+        "kitty-products": "Kitty products",
+        "clear-filter": "Clear filter",
+        "delete-cat": "Delete the kitty from the list?",
+        "no-kitties": "No kitties",
+        "Limit": "Limit",
+        "add-cat": "Add kitty",
+        "select-color": "Select color",
+        "select-breed": "Select breed",
+        "select-fluff": "Select fluff",
+        "select-kitty-type": "Select kitty type",
+        "select-degree-of-bigeyedness": "Select degree of bigeyedness",
+        "select-stars": "Select rating",
+        "can-kitty-loaf": "Can the kitty loaf",
+        "loaf": "Loaf",
+        "no-loaf": "No Loaf",
+        "no-kitty-photo": "No kitty pics found"
+    },
+    "common": {
+        "delete": "Delete",
+        "technichal-problems": "Technichal problemeows",
+        "no-data": "No data",
+        "update": "Update",
+        "add": "Add",
+        "cancel": "Cancel",
+        "required-field": "Required field",
+        "save": "Save",
+        "edit": "Edit",
+        "unknown": "Unknown",
+        "yes": "Yes"
+    },
+    "table-column-names": {
+        "color": "Color",
+        "comment": "Comment",
+        "date-modified": "Date modified",
+        "breed": "Breed",
+        "fluff": "Fluuf",
+        "name": "Name",
+        "kitty-type": "Kitty type",
+        "short-name": "Short name",
+        "kitty-mass": "Kitty weight",
+        "kitty-servant": "Kitty servant",
+        "bigeyedness": "Bigeyedness",
+        "breadness": "Breadness",
+        "softness": "Softness",
+        "birthdate": "Birthdate",
+        "stars": "Rating"
+    },
+    "warning": {
+        "are-you-sure": "Are you sure?",
+        "this-action-can't-be-cancelled": "This action can't be cancelled"
+    }
+}

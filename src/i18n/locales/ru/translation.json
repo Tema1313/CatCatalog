@@ -1,0 +1,101 @@
+{
+    "navbar": {
+        "kitty-accounting": "Котеечный учёт",
+        "kitties": "Котики",
+        "exit": "Выход",
+        "colors": "Цвета",
+        "breeds": "Породы",
+        "coats": "Шёрстки",
+        "catalogs": "Каталоги"
+    },
+    "filters": {
+        "name": "Имя",
+        "short-name": "Короткое имя",
+        "color": "Цвет",
+        "fluff": "Шерстка",
+        "kitty-type": "Тип котика",
+        "breed": "Порода",
+        "apply": "Применить",
+        "all": "Все",
+        "errors": {
+            "no-colors-found": "Цвета не найдены",
+            "no-coats-found": "Шерстки не найдены",
+            "no-type-cat-found": "Такого типа котика не существует(",
+            "no-breed-cat-found": "Такой породы котика не существует("
+        }
+    },
+    "catalogs": {
+        "colors": {
+            "kitty-colors": "Цвета котиков",
+            "rgb": "rgb",
+            "add-kitty-color": "Добавить цвет котика",
+            "change-color": "Редактирование цвета"
+        },
+        "breeds": {
+            "cat-breeds": "Породы",
+            "search-by-name": "Поиск по наименованию породы...",
+            "no-breeds": "Нет пород...",
+            "add-breed": "Добавить породу",
+            "breed-name": "Название породы",
+            "change-breed": "Редактирование породы"
+        },
+        "fluff": {
+            "types-of-fluff": "Виды шерсток",
+            "search-by-name": "Поиск по наименованию шёрсточки...",
+            "no-fluff": "Нет шёрсточек...",
+            "change-fluff": "Редактирование шерстки"
+        }
+    },
+    "cats": {
+        "kitty-products": "Котеечная продукция",
+        "clear-filter": "очистить фильтр",
+        "delete-cat": "Удалить котика из списка?",
+        "no-kitties": "Нет котиков",
+        "Limit": "Ограничение",
+        "add-cat": "Добавить котика",
+        "select-color": "Выберите цвет",
+        "select-breed": "Выберите породу",
+        "select-fluff": "Выберите шерстку",
+        "select-kitty-type": "Выберите тип",
+        "select-degree-of-bigeyedness": "Выберите степень большеглазости",
+        "select-stars": "Выберите рейтинг",
+        "can-kitty-loaf": "Возможен ли батон",
+        "loaf": "Батон",
+        "no-loaf": "Не батон",
+        "no-kitty-photo": "Не найдены фоточки котика"
+    },
+    "common": {
+        "delete": "Удалить",
+        "technichal-problems": "Технические проблемяузы",
+        "no-data": "Нет данных",
+        "update": "Обновить",
+        "add": "Добавить",
+        "cancel": "Отменить",
+        "required-field": "Обязательное поле",
+        "save": "Сохранить",
+        "edit": "Редактировать",
+        "unknown": "Неизвестно",
+        "yes": "Да"
+    },
+    "table-column-names": {
+        "color": "Цвет",
+        "comment": "Комментарий",
+        "date-modified": "Дата модификации",
+        "breed": "Порода",
+        "fluff": "Шерстка",
+        "name": "Имя",
+        "kitty-type": "Тип котика",
+        "short-name": "Короткое имя",
+        "kitty-mass": "Вес котика",
+        "kitty-servant": "Слуга котика",
+        "bigeyedness": "Большеглазость",
+        "breadness": "Хлебобулочность",
+        "softness": "Мягкость",
+        "birthdate": "Дата рождения",
+        "stars": "Рейтинг"
+    },
+    "warning": {
+        "are-you-sure": "Вы уверены?",
+        "this-action-can't-be-cancelled": "Это действие нельзя отменить"
+    }
+}

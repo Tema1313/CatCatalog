@@ -1,3 +1,4 @@
+import { useLanguage } from "@/i18n/hooks/useLanguage"
 import {
 	NavigationMenuContent,
 	NavigationMenuItem,
@@ -11,15 +12,16 @@ interface ICatalogNavigayionProps {}
 
 export const CatalogNavigation: FC<ICatalogNavigayionProps> = () => {
 	const navigate = useNavigate()
+	const { t } = useLanguage()
 	const menu: { title: string; url: keyof FileRoutesByPath }[] = [
-		{ title: "Цвета", url: "/catalogs/colors" },
-		{ title: "Породы", url: "/catalogs/breeds" },
-		{ title: "Шёрстки", url: "/catalogs/coats" },
+		{ title: t("navbar.colors"), url: "/catalogs/colors" },
+		{ title: t("navbar.breeds"), url: "/catalogs/breeds" },
+		{ title: t("navbar.coats"), url: "/catalogs/coats" },
 	]
 
 	return (
 		<NavigationMenuItem>
-			<NavigationMenuTrigger>Каталоги</NavigationMenuTrigger>
+			<NavigationMenuTrigger>{t("navbar.catalogs")}</NavigationMenuTrigger>
 			<NavigationMenuContent>
 				{menu.map((item) => (
 					<NavigationMenuLink

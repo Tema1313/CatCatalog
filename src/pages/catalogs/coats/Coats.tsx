@@ -32,6 +32,7 @@ import type { ICoatType } from "@/shared/api/model"
 import { catCoatTypes } from "@/shared/api/testdata"
 import { UpdateCoat } from "./UpdateCoat"
 import { CreateCoat } from "./CreateCoat"
+import { useLanguage } from "@/i18n/hooks/useLanguage"
 
 interface ICoatsProps {}
 
@@ -44,6 +45,7 @@ export const Coats: FC<ICoatsProps> = () => {
 		pageSize: 10,
 	})
 	const [loading, reqSim] = useRequestSimulation()
+	const { t } = useLanguage()
 
 	useEffect(() => {
 		reqSim(() => {
@@ -54,15 +56,15 @@ export const Coats: FC<ICoatsProps> = () => {
 	const columns: ColumnDef<ICoatType>[] = [
 		{
 			accessorKey: "name",
-			header: ({ column }) => <TableHeaderSortCell title="Шерстка" {...column} />,
+			header: ({ column }) => <TableHeaderSortCell title={t("table-column-names.fluff")} {...column} />,
 		},
 		{
 			accessorKey: "comment",
-			header: ({ column }) => <TableHeaderSortCell title="Комментарий" {...column} />,
+			header: ({ column }) => <TableHeaderSortCell title={t("table-column-names.comment")} {...column} />,
 		},
 		{
 			accessorKey: "date",
-			header: ({ column }) => <TableHeaderSortCell title="Дата модификации" {...column} />,
+			header: ({ column }) => <TableHeaderSortCell title={t("table-column-names.date-modified")} {...column} />,
 			cell: ({ row }) => {
 				return <div>{new DateObject(row.getValue<ICoatType["date"]>("date") || "").format("DD.MM.YYYY")}</div>
 			},
@@ -80,10 +82,10 @@ export const Coats: FC<ICoatsProps> = () => {
 					actionClick={() => {
 						reqSim(() => {
 							console.log(row)
-							toast.error("Technichal problemeows")
+							toast.error(t("common.technichal-problems"))
 						})
 					}}
-					actionTitle="Удалить"
+					actionTitle={t("common.delete")}
 				>
 					<Button variant="link" className="cursor-pointer">
 						<Trash className="ml-2 h-4 w-4 " color="red" />
@@ -112,7 +114,7 @@ export const Coats: FC<ICoatsProps> = () => {
 	return (
 		<div className="m-4">
 			<div className="flex justify-between content-center">
-				<div className="mb-3 text-xl font-bold">Виды шерсток</div>
+				<div className="mb-3 text-xl font-bold">{t("catalogs.fluff.types-of-fluff")}</div>
 				<div className="flex">
 					<div>
 						<Button
@@ -124,7 +126,7 @@ export const Coats: FC<ICoatsProps> = () => {
 							size="sm"
 							variant="ghost"
 							className="ml-auto green cursor-pointer"
-							title="Обновить"
+							title={t("common.update")}
 						>
 							<RefreshCcw color="#4082b7" />
 						</Button>
@@ -135,7 +137,7 @@ export const Coats: FC<ICoatsProps> = () => {
 			<div className="flex items-center pb-2 w-full">
 				<Input
 					className="w-full bg-card h-9"
-					placeholder={"Поиск по наименованию шёрсточки..."}
+					placeholder={t("catalogs.fluff.search-by-name")}
 					onChange={(event) => {
 						setColumnFilters(() => {
 							return [{ id: "name", value: event.target.value }]
@@ -185,7 +187,7 @@ export const Coats: FC<ICoatsProps> = () => {
 									) : (
 										<TableRow>
 											<TableCell colSpan={columns.length} className="h-24 text-center">
-												Нет шёрсточек...
+												{t("catalogs.fluff.no-fluff")}
 											</TableCell>
 										</TableRow>
 									)}

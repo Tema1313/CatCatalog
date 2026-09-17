@@ -21,13 +21,14 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/shared/components/ui/input"
 import { RgbColorPicker } from "react-colorful"
 import { useRequestSimulation } from "@/shared/hooks/useRequestSimulation"
+import { useLanguage } from "@/i18n/hooks/useLanguage"
 
 interface IUpdateColorProps {
 	color: IColor
 }
 
 const UpdateColorSchema = z.object({
-	name: z.string({ message: "Обязательное поле" }).min(1, { message: "Обязательное поле" }),
+	name: z.string({ message: "Required field" }).min(1, { message: "Required field" }),
 	comment: z.string().optional(),
 	color: z.object({
 		r: z.number(),
@@ -41,6 +42,7 @@ type UpdateColorFormData = z.infer<typeof UpdateColorSchema>
 export const UpdateColor: FC<IUpdateColorProps> = (props) => {
 	const [open, setOpen] = useState<boolean>(false)
 	const [loading, reqSim] = useRequestSimulation()
+	const { t } = useLanguage()
 
 	const rgb = getRgb(props.color.rgb || "")
 
@@ -62,7 +64,7 @@ export const UpdateColor: FC<IUpdateColorProps> = (props) => {
 	const onSubmit = (data: UpdateColorFormData) => {
 		reqSim(() => {
 			console.log(data)
-			toast.error("Technichal problemeows")
+			toast.error(t("common.technichal-problems"))
 		})
 	}
 
@@ -75,14 +77,14 @@ export const UpdateColor: FC<IUpdateColorProps> = (props) => {
 				if (!open) form.reset()
 			}}
 		>
-			<DialogTrigger title="Редактировать" className="cursor-pointer" asChild>
+			<DialogTrigger title={t("common.edit")} className="cursor-pointer" asChild>
 				<Button variant="link" className="ml-auto text-blue-500 cursor-pointer">
 					<Pencil className="ml-2 h-4 w-4" />
 				</Button>
 			</DialogTrigger>
 			<DialogContent>
 				<DialogHeader className="gap-0">
-					<DialogTitle>Редактирование цвета</DialogTitle>
+					<DialogTitle>{t("catalogs.colors.change-color")}</DialogTitle>
 					<DialogDescription />
 				</DialogHeader>
 				<div>
@@ -93,7 +95,7 @@ export const UpdateColor: FC<IUpdateColorProps> = (props) => {
 								name="name"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Цвет</FormLabel>
+										<FormLabel>{t("table-column-names.color")}</FormLabel>
 										<FormControl>
 											<Input {...field} />
 										</FormControl>
@@ -172,7 +174,7 @@ export const UpdateColor: FC<IUpdateColorProps> = (props) => {
 								name="comment"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Комментарий</FormLabel>
+										<FormLabel>{t("table-column-names.comment")}</FormLabel>
 										<FormControl>
 											<Input {...field} />
 										</FormControl>
@@ -193,11 +195,11 @@ export const UpdateColor: FC<IUpdateColorProps> = (props) => {
 										type="button"
 										disabled={loading}
 									>
-										Отменить
+										{t("common.cancel")}
 									</Button>
 								</DialogClose>
 								<Button disabled={loading} size={"sm"} className="cursor-pointer" type="submit">
-									{loading ? <Loader2 className="m-2 animate-spin justify-center " /> : "Сохранить"}
+									{loading ? <Loader2 className="m-2 animate-spin justify-center " /> : t("common.save")}
 								</Button>
 							</DialogFooter>
 						</form>

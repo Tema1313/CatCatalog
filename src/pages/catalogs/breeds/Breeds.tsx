@@ -30,6 +30,8 @@ import React, { useEffect } from "react"
 import { useState, type FC } from "react"
 import { toast } from "sonner"
 import { UpdateBreed } from "./UpdateBreed"
+import { useLanguage } from "@/i18n/hooks/useLanguage"
+import { CreateBreed } from "./CreateBreed"
 
 interface ICoatsProps {}
 
@@ -42,6 +44,7 @@ export const Breeds: FC<ICoatsProps> = () => {
 		pageSize: 10,
 	})
 	const [loading, reqSim] = useRequestSimulation()
+	const { t } = useLanguage()
 
 	useEffect(() => {
 		reqSim(() => {
@@ -52,11 +55,11 @@ export const Breeds: FC<ICoatsProps> = () => {
 	const columns: ColumnDef<ICatBreedType>[] = [
 		{
 			accessorKey: "name",
-			header: ({ column }) => <TableHeaderSortCell title="Порода" {...column} />,
+			header: ({ column }) => <TableHeaderSortCell title={t("table-column-names.breed")} {...column} />,
 		},
 		{
 			accessorKey: "comment",
-			header: ({ column }) => <TableHeaderSortCell title="Комментарий" {...column} />,
+			header: ({ column }) => <TableHeaderSortCell title={t("table-column-names.comment")} {...column} />,
 		},
 		{
 			id: "update",
@@ -71,10 +74,10 @@ export const Breeds: FC<ICoatsProps> = () => {
 					actionClick={() => {
 						reqSim(() => {
 							console.log(row)
-							toast.error("Technichal problemeows")
+							toast.error(t("common.technichal-problems"))
 						})
 					}}
-					actionTitle="Удалить"
+					actionTitle={t("common.delete")}
 				>
 					<Button variant="link" className="cursor-pointer">
 						<Trash className="ml-2 h-4 w-4 " color="red" />
@@ -103,7 +106,7 @@ export const Breeds: FC<ICoatsProps> = () => {
 	return (
 		<div className="m-4">
 			<div className="flex justify-between content-center">
-				<div className="mb-3 text-xl font-bold">Породы</div>
+				<div className="mb-3 text-xl font-bold">{t("catalogs.breeds.cat-breeds")}</div>
 				<div className="flex">
 					<div>
 						<Button
@@ -115,18 +118,18 @@ export const Breeds: FC<ICoatsProps> = () => {
 							size="sm"
 							variant="ghost"
 							className="ml-auto green cursor-pointer"
-							title="Обновить"
+							title={t("common.update")}
 						>
 							<RefreshCcw color="#4082b7" />
 						</Button>
 					</div>
-					{/* <CreateCoat /> */}
+					<CreateBreed />
 				</div>
 			</div>
 			<div className="flex items-center pb-2 w-full">
 				<Input
 					className="w-full bg-card h-9"
-					placeholder={"Поиск по наименованию породы..."}
+					placeholder={t("catalogs.breeds.search-by-name")}
 					onChange={(event) => {
 						setColumnFilters(() => {
 							return [{ id: "name", value: event.target.value }]
@@ -176,7 +179,7 @@ export const Breeds: FC<ICoatsProps> = () => {
 									) : (
 										<TableRow>
 											<TableCell colSpan={columns.length} className="h-24 text-center">
-												Нет пород...
+												{t("catalogs.breeds.no-breeds")}
 											</TableCell>
 										</TableRow>
 									)}

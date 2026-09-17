@@ -35,6 +35,7 @@ import catNotBread from "@assets/bread-icons/catnobread.png"
 import { CreateCat } from "./CreateCat"
 import { toast } from "sonner"
 import { getRgb } from "@/pages/catalogs/colors/utils/getRgb"
+import { useLanguage } from "@/i18n/hooks/useLanguage"
 
 interface ICatsProps {
 	catId?: number
@@ -46,6 +47,7 @@ export const Cats: FC<ICatsProps> = (props) => {
 	const cats = useCatsStore((store) => store.cats)
 	const { updateCatList, isLoading: isCatListLoading } = useUpdateCatList()
 	const [loading, reqSim] = useRequestSimulation()
+	const { t } = useLanguage()
 
 	const currentCat = cats.find((product) => product.id === props.catId)
 	const isLoading = isCatListLoading || loading
@@ -64,7 +66,7 @@ export const Cats: FC<ICatsProps> = (props) => {
 	const columns: ColumnDef<ICat>[] = [
 		{
 			accessorKey: "name",
-			header: ({ column }) => <TableHeaderSortCell title="Имя" {...column} />,
+			header: ({ column }) => <TableHeaderSortCell title={t("table-column-names.name")} {...column} />,
 			cell: ({ row }) => {
 				const value = row.getValue<ICat["name"]>("name")
 				return (
@@ -78,15 +80,15 @@ export const Cats: FC<ICatsProps> = (props) => {
 		},
 		{
 			accessorKey: "shortName",
-			header: ({ column }) => <TableHeaderSortCell title="Короткое имя" {...column} />,
+			header: ({ column }) => <TableHeaderSortCell title={t("table-column-names.short-name")} {...column} />,
 		},
 		{
 			accessorKey: "locationTypeId",
-			header: ({ column }) => <TableHeaderSortCell title="Тип котика" {...column} />,
+			header: ({ column }) => <TableHeaderSortCell title={t("table-column-names.kitty-type")} {...column} />,
 			cell: ({ row }) => {
 				const value =
 					catsTypeList.find((elem) => elem.id === row.getValue<ICat["locationTypeId"]>("locationTypeId"))?.name ||
-					"Неизвестно"
+					t("common.unknown")
 				return <div>{value}</div>
 			},
 			sortingFn: (rowA, rowB) => {
@@ -97,10 +99,10 @@ export const Cats: FC<ICatsProps> = (props) => {
 		},
 		{
 			accessorKey: "colorId",
-			header: ({ column }) => <TableHeaderSortCell title="Цвет" {...column} />,
+			header: ({ column }) => <TableHeaderSortCell title={t("table-column-names.color")} {...column} />,
 			cell: ({ row }) => {
 				const color = colorsList.find((elem) => elem.id === row.getValue<ICat["colorId"]>("colorId"))
-				const colorName = color?.name || "Неизвестно"
+				const colorName = color?.name || t("common.unknown")
 				const rgb = getRgb(color?.rgb || "")
 				return (
 					<div className="flex justify-start">
@@ -122,10 +124,11 @@ export const Cats: FC<ICatsProps> = (props) => {
 		},
 		{
 			accessorKey: "coatTypeId",
-			header: ({ column }) => <TableHeaderSortCell title="Тип шерстки" {...column} />,
+			header: ({ column }) => <TableHeaderSortCell title={t("table-column-names.fluff")} {...column} />,
 			cell: ({ row }) => {
 				const value =
-					coatsList.find((elem) => elem.id === row.getValue<ICat["coatTypeId"]>("coatTypeId"))?.name || "Неизвестно"
+					coatsList.find((elem) => elem.id === row.getValue<ICat["coatTypeId"]>("coatTypeId"))?.name ||
+					t("common.unknown")
 				return <div>{value}</div>
 			},
 			sortingFn: (rowA, rowB) => {
@@ -136,10 +139,11 @@ export const Cats: FC<ICatsProps> = (props) => {
 		},
 		{
 			accessorKey: "breedTypeId",
-			header: ({ column }) => <TableHeaderSortCell title="Порода" {...column} />,
+			header: ({ column }) => <TableHeaderSortCell title={t("table-column-names.breed")} {...column} />,
 			cell: ({ row }) => {
 				const value =
-					breedsList.find((elem) => elem.id === row.getValue<ICat["breedTypeId"]>("breedTypeId"))?.name || "Неизвестно"
+					breedsList.find((elem) => elem.id === row.getValue<ICat["breedTypeId"]>("breedTypeId"))?.name ||
+					t("common.unknown")
 
 				return <div>{value}</div>
 			},
@@ -151,19 +155,19 @@ export const Cats: FC<ICatsProps> = (props) => {
 		},
 		{
 			accessorKey: "mass",
-			header: ({ column }) => <TableHeaderSortCell title="Вес котика" {...column} />,
+			header: ({ column }) => <TableHeaderSortCell title={t("table-column-names.kitty-mass")} {...column} />,
 		},
 		{
 			accessorKey: "owner",
-			header: ({ column }) => <TableHeaderSortCell title="Слуга котика" {...column} />,
+			header: ({ column }) => <TableHeaderSortCell title={t("table-column-names.kitty-servant")} {...column} />,
 		},
 		{
 			accessorKey: "bigeyedness",
-			header: ({ column }) => <TableHeaderSortCell title="Большеглазость(от 1 до 10)" {...column} />,
+			header: ({ column }) => <TableHeaderSortCell title={t("table-column-names.bigeyedness")} {...column} />,
 		},
 		{
 			accessorKey: "breadness",
-			header: ({ column }) => <TableHeaderSortCell title="Хлебобулочность" {...column} />,
+			header: ({ column }) => <TableHeaderSortCell title={t("table-column-names.breadness")} {...column} />,
 			cell: ({ row }) => {
 				const isBread = row.getValue<ICat["breadness"]>("breadness")
 				return (
@@ -175,18 +179,18 @@ export const Cats: FC<ICatsProps> = (props) => {
 		},
 		{
 			accessorKey: "softness",
-			header: ({ column }) => <TableHeaderSortCell title="Мягкость" {...column} />,
+			header: ({ column }) => <TableHeaderSortCell title={t("table-column-names.softness")} {...column} />,
 		},
 		{
 			accessorKey: "date",
-			header: ({ column }) => <TableHeaderSortCell title="Дата рождения" {...column} />,
+			header: ({ column }) => <TableHeaderSortCell title={t("table-column-names.birthdate")} {...column} />,
 			cell: ({ row }) => {
 				return <div>{new DateObject(row.getValue<ICat["date"]>("date") || "").format("DD.MM.YYYY")}</div>
 			},
 		},
 		{
 			accessorKey: "stars",
-			header: ({ column }) => <TableHeaderSortCell title="Рейтинг" {...column} />,
+			header: ({ column }) => <TableHeaderSortCell title={t("table-column-names.stars")} {...column} />,
 			cell: ({ row }) => {
 				const stars = Array.from({ length: row.getValue<ICat["stars"]>("stars") || 5 }, (_, index) => (
 					<span key={index}>⭐</span>
@@ -244,12 +248,12 @@ export const Cats: FC<ICatsProps> = (props) => {
 			<ResizablePanel defaultSize={props.catId ? 40 : 100}>
 				<div className="m-4">
 					<div className="flex justify-between items-center mb-3">
-						<div className="text-xl font-bold">Котеечная продукция</div>
+						<div className="text-xl font-bold">{t("cats.kitty-products")}</div>
 						<div className="flex">
 							<Button
 								variant="ghost"
 								className="cursor-pointer p-2"
-								title="Очистить фильтр"
+								title={t("cats.clear-filter")}
 								onClick={() => {
 									navigate({
 										search: () => ({
@@ -269,13 +273,18 @@ export const Cats: FC<ICatsProps> = (props) => {
 							<Warning
 								actionClick={() => {
 									reqSim(() => {
-										toast.error("Technichal problemeows")
+										toast.error(t("common.technichal-problems"))
 									})
 								}}
-								description="Удалить котика из списка?"
-								actionTitle="Да"
+								description={t("cats.delete-cat")}
+								actionTitle={t("common.yes")}
 							>
-								<Button disabled={!currentCat} title="Удалить" variant="ghost" className="cursor-pointer p-2">
+								<Button
+									disabled={!currentCat}
+									title={t("common.delete")}
+									variant="ghost"
+									className="cursor-pointer p-2"
+								>
 									<X color="red" strokeWidth={4} />
 								</Button>
 							</Warning>
@@ -284,7 +293,7 @@ export const Cats: FC<ICatsProps> = (props) => {
 									updateCatList()
 								}}
 								variant="ghost"
-								title="Обновить"
+								title={t("common.update")}
 								className="ml-auto green cursor-pointer p-2"
 							>
 								<RefreshCcw color="#4082b7" />
@@ -343,7 +352,7 @@ export const Cats: FC<ICatsProps> = (props) => {
 										) : (
 											<TableRow>
 												<TableCell colSpan={columns.length} className="h-24 text-center">
-													Нет котиков
+													{t("cats.no-kitties")}
 												</TableCell>
 											</TableRow>
 										)}
@@ -351,7 +360,9 @@ export const Cats: FC<ICatsProps> = (props) => {
 								</Table>
 							</div>
 							<div className="flex justify-between justify-items-center flex-wrap-reverse">
-								<div className="mt-4">Ограничение: 15</div>
+								<div className="mt-4">
+									{t("cats.Limit")}: {pagination.pageSize}
+								</div>
 								<TablePagination
 									table={table}
 									pageIndex={pagination.pageIndex}

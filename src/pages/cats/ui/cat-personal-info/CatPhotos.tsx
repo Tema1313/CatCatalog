@@ -7,6 +7,7 @@ import {
 	CarouselPrevious,
 } from "@/shared/components/ui/carousel"
 import { Card, CardContent } from "@/shared/components/ui/card"
+import { useLanguage } from "@/i18n/hooks/useLanguage"
 
 interface ICatPhotosProps {
 	photos: string[]
@@ -14,6 +15,7 @@ interface ICatPhotosProps {
 
 export const CatPhotos: FC<ICatPhotosProps> = (props) => {
 	const [loaded, setLoaded] = useState(false)
+	const { t } = useLanguage()
 
 	return (
 		<div className="relative w-full h-full flex justify-center items-center">
@@ -48,7 +50,7 @@ export const CatPhotos: FC<ICatPhotosProps> = (props) => {
 					<CarouselNext />
 				</Carousel>
 			) : (
-				<div>Не найдены фоточки котика</div>
+				<div>{t("cats.no-kitty-photo")}</div>
 			)}
 		</div>
 	)

@@ -10,6 +10,7 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from "../ui/alert-dialog"
+import { useLanguage } from "@/i18n/hooks/useLanguage"
 
 interface IWarningProps {
 	actionClick: (event?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
@@ -19,20 +20,22 @@ interface IWarningProps {
 }
 
 export const Warning: FC<PropsWithChildren<IWarningProps>> = (props) => {
+	const { t } = useLanguage()
+
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger asChild>{props.children}</AlertDialogTrigger>
 			<AlertDialogContent>
 				<AlertDialogHeader>
-					<AlertDialogTitle>{"Вы уверены?"}</AlertDialogTitle>
+					<AlertDialogTitle>{t("warning.are-you-sure")}</AlertDialogTitle>
 					<AlertDialogDescription>
-						{props.description !== undefined ? props.description : "Это действие нельзя отменить"}
+						{props.description !== undefined ? props.description : t("warning.this-action-can't-be-cancelled")}
 					</AlertDialogDescription>
 				</AlertDialogHeader>
 				<AlertDialogFooter>
-					<AlertDialogCancel onClick={props.cancelClick}>{"Отменить"}</AlertDialogCancel>
+					<AlertDialogCancel onClick={props.cancelClick}>{t("common.cancel")}</AlertDialogCancel>
 					<AlertDialogAction onClick={props.actionClick}>
-						{props.actionTitle ? props.actionTitle : "Сохранить"}
+						{props.actionTitle ? props.actionTitle : t("common.save")}
 					</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>

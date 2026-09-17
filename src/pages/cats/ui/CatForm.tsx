@@ -17,6 +17,7 @@ import catBread from "@assets/bread-icons/catbread.png"
 import catNotBread from "@assets/bread-icons/catnobread.png"
 import { DialogClose, DialogFooter } from "@/shared/components/ui/dialog"
 import { Button } from "@/shared/components/ui/button"
+import { useLanguage } from "@/i18n/hooks/useLanguage"
 
 export const CatForm: FC<ICatForm> = (props) => {
 	const [search, setSearch] = useState<{
@@ -30,6 +31,7 @@ export const CatForm: FC<ICatForm> = (props) => {
 		breed: "",
 		coat: "",
 	})
+	const { t } = useLanguage()
 
 	const [form, submit, { breedsList, catsTypeList, coatsList, colorsList, isSubmitLoading, isCatalogLoading }] =
 		useCatForm({
@@ -51,7 +53,7 @@ export const CatForm: FC<ICatForm> = (props) => {
 								name="name"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Имя</FormLabel>
+										<FormLabel>{t("table-column-names.name")}</FormLabel>
 										<FormControl>
 											<Input {...field} />
 										</FormControl>
@@ -63,7 +65,7 @@ export const CatForm: FC<ICatForm> = (props) => {
 								name="shortName"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Короткое имя</FormLabel>
+										<FormLabel>{t("table-column-names.short-name")}</FormLabel>
 										<FormControl>
 											<Input {...field} />
 										</FormControl>
@@ -75,7 +77,7 @@ export const CatForm: FC<ICatForm> = (props) => {
 								name="owner"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Слуга</FormLabel>
+										<FormLabel>{t("table-column-names.kitty-servant")}</FormLabel>
 										<FormControl>
 											<Input {...field} />
 										</FormControl>
@@ -87,7 +89,7 @@ export const CatForm: FC<ICatForm> = (props) => {
 								name="softness"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Мягкость</FormLabel>
+										<FormLabel>{t("table-column-names.softness")}</FormLabel>
 										<FormControl>
 											<Input {...field} />
 										</FormControl>
@@ -104,7 +106,7 @@ export const CatForm: FC<ICatForm> = (props) => {
 
 									return (
 										<FormItem>
-											<FormLabel>Цвет</FormLabel>
+											<FormLabel>{t("table-column-names.color")}</FormLabel>
 											<Combobox
 												value={field.value}
 												onValueChange={(val) => {
@@ -128,7 +130,7 @@ export const CatForm: FC<ICatForm> = (props) => {
 														</div>
 													)}
 													<ComboboxInput
-														placeholder="Выберите цвет"
+														placeholder={t("cats.select-color")}
 														value={search.color || selectedColor?.name || ""}
 														onChange={(e) =>
 															setSearch((prev) => ({
@@ -147,7 +149,7 @@ export const CatForm: FC<ICatForm> = (props) => {
 												</div>
 
 												<ComboboxContent className="pointer-events-auto" onWheel={(e) => e.stopPropagation()}>
-													<ComboboxEmpty>Цвета не найдены</ComboboxEmpty>
+													<ComboboxEmpty>{t("common.no-data")}</ComboboxEmpty>
 
 													<ComboboxList>
 														{(color: IColor) => {
@@ -194,7 +196,7 @@ export const CatForm: FC<ICatForm> = (props) => {
 
 									return (
 										<FormItem>
-											<FormLabel>Порода</FormLabel>
+											<FormLabel>{t("table-column-names.breed")}</FormLabel>
 											<Combobox
 												value={field.value}
 												onValueChange={(val) => {
@@ -207,7 +209,7 @@ export const CatForm: FC<ICatForm> = (props) => {
 												items={breedsList}
 											>
 												<ComboboxInput
-													placeholder="Выберите породу"
+													placeholder={t("cats.select-breed")}
 													value={search.breed || selectedBreed?.name || ""}
 													onChange={(e) =>
 														setSearch((prev) => ({
@@ -227,7 +229,7 @@ export const CatForm: FC<ICatForm> = (props) => {
 												/>
 
 												<ComboboxContent className="pointer-events-auto" onWheel={(e) => e.stopPropagation()}>
-													<ComboboxEmpty>Породы не найдены</ComboboxEmpty>
+													<ComboboxEmpty>{t("common.no-data")}</ComboboxEmpty>
 
 													<ComboboxList>
 														{(item: ICatBreedType) => (
@@ -263,7 +265,7 @@ export const CatForm: FC<ICatForm> = (props) => {
 
 									return (
 										<FormItem>
-											<FormLabel>Тип шерстки</FormLabel>
+											<FormLabel>{t("table-column-names.fluff")}</FormLabel>
 											<Combobox
 												value={field.value}
 												onValueChange={(val) => {
@@ -276,7 +278,7 @@ export const CatForm: FC<ICatForm> = (props) => {
 												items={coatsList}
 											>
 												<ComboboxInput
-													placeholder="Выберите шерстку"
+													placeholder={t("cats.select-fluff")}
 													value={search.coat || selectedCoat?.name || ""}
 													onChange={(e) =>
 														setSearch((prev) => ({
@@ -296,7 +298,7 @@ export const CatForm: FC<ICatForm> = (props) => {
 												/>
 
 												<ComboboxContent className="pointer-events-auto" onWheel={(e) => e.stopPropagation()}>
-													<ComboboxEmpty>Шерстки не найдены</ComboboxEmpty>
+													<ComboboxEmpty>{t("common.no-data")}</ComboboxEmpty>
 
 													<ComboboxList>
 														{(item: ICatBreedType) => (
@@ -332,7 +334,7 @@ export const CatForm: FC<ICatForm> = (props) => {
 
 									return (
 										<FormItem>
-											<FormLabel>Тип котика</FormLabel>
+											<FormLabel>{t("table-column-names.kitty-type")}</FormLabel>
 											<Combobox
 												value={field.value}
 												onValueChange={(val) => {
@@ -345,7 +347,7 @@ export const CatForm: FC<ICatForm> = (props) => {
 												items={catsTypeList}
 											>
 												<ComboboxInput
-													placeholder="Выберите тип"
+													placeholder={t("cats.select-kitty-type")}
 													value={search.coat || selectedLocationType?.name || ""}
 													onChange={(e) =>
 														setSearch((prev) => ({
@@ -365,7 +367,7 @@ export const CatForm: FC<ICatForm> = (props) => {
 												/>
 
 												<ComboboxContent className="pointer-events-auto" onWheel={(e) => e.stopPropagation()}>
-													<ComboboxEmpty>Типы котика не найдены</ComboboxEmpty>
+													<ComboboxEmpty>{t("common.no-data")}</ComboboxEmpty>
 
 													<ComboboxList>
 														{(item: ICatBreedType) => (
@@ -399,7 +401,7 @@ export const CatForm: FC<ICatForm> = (props) => {
 									const options = Array.from({ length: 10 }, (_, index) => index + 1)
 									return (
 										<FormItem>
-											<FormLabel>Большеглазость (от 1 до 10)</FormLabel>
+											<FormLabel>{t("table-column-names.bigeyedness")}</FormLabel>
 											<FormControl>
 												<Combobox
 													value={Number(field.value)}
@@ -408,7 +410,7 @@ export const CatForm: FC<ICatForm> = (props) => {
 													}}
 													items={options}
 												>
-													<ComboboxInput placeholder="Выберите степень большеглазости" />
+													<ComboboxInput placeholder={t("cats.select-degree-of-bigeyedness")} />
 													<ComboboxContent className="pointer-events-auto" onWheel={(e) => e.stopPropagation()}>
 														<ComboboxList>
 															{(item: number) => (
@@ -439,7 +441,7 @@ export const CatForm: FC<ICatForm> = (props) => {
 									const options = Array.from({ length: 5 }, (_, index) => index + 1)
 									return (
 										<FormItem>
-											<FormLabel>Рейтинг</FormLabel>
+											<FormLabel>{t("table-column-names.stars")}</FormLabel>
 											<FormControl>
 												<Combobox
 													value={"⭐".repeat(Number(field.value))}
@@ -448,7 +450,7 @@ export const CatForm: FC<ICatForm> = (props) => {
 													}}
 													items={options}
 												>
-													<ComboboxInput placeholder="Выберите степень большеглазости" />
+													<ComboboxInput placeholder={t("cats.select-stars")} />
 													<ComboboxContent className="pointer-events-auto" onWheel={(e) => e.stopPropagation()}>
 														<ComboboxList>
 															{(item: number) => (
@@ -477,7 +479,7 @@ export const CatForm: FC<ICatForm> = (props) => {
 								name="mass"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Вес котика</FormLabel>
+										<FormLabel>{t("table-column-names.kitty-mass")}</FormLabel>
 										<FormControl>
 											<Input
 												value={field.value || ""}
@@ -509,7 +511,7 @@ export const CatForm: FC<ICatForm> = (props) => {
 									]
 									return (
 										<FormItem>
-											<FormLabel>Хлебобулочность</FormLabel>
+											<FormLabel>{t("table-column-names.breadness")}</FormLabel>
 											<FormControl>
 												<Combobox
 													value={field.value}
@@ -519,14 +521,14 @@ export const CatForm: FC<ICatForm> = (props) => {
 													items={options}
 												>
 													<ComboboxInput
-														placeholder="Возможен ли батон"
+														placeholder={t("cats.can-kitty-loaf")}
 														render={(props) => {
 															const selected = options.find((o) => o.value === field.value)
 															return (
 																<div {...props} className="flex w-full items-center gap-2 px-2.5">
 																	{selected && <img src={selected.img} alt="" className="h-5 w-5 shrink-0" />}
 																	<span className={selected ? "" : "text-muted-foreground"}>
-																		{selected ? (selected.value ? "Батон" : "Не батон") : ""}
+																		{selected ? (selected.value ? t("cats.loaf") : t("cats.no-loaf")) : ""}
 																	</span>
 																</div>
 															)
@@ -560,11 +562,11 @@ export const CatForm: FC<ICatForm> = (props) => {
 							<DialogFooter className="me-1">
 								<DialogClose asChild>
 									<Button disabled={isSubmitLoading} size={"sm"} className="cursor-pointer" variant="outline">
-										Отменить
+										{t("common.cancel")}
 									</Button>
 								</DialogClose>
 								<Button disabled={isSubmitLoading} size={"sm"} className="cursor-pointer" type="submit">
-									{isSubmitLoading ? <Loader2 className="m-2 animate-spin justify-center " /> : "Сохранить"}
+									{isSubmitLoading ? <Loader2 className="m-2 animate-spin justify-center " /> : t("common.save")}
 								</Button>
 							</DialogFooter>
 						) : (
@@ -579,7 +581,7 @@ export const CatForm: FC<ICatForm> = (props) => {
 									}}
 									disabled={isSubmitLoading}
 								>
-									Отменить
+									{t("common.cancel")}
 								</Button>
 								<Button
 									disabled={isSubmitLoading}
@@ -588,7 +590,7 @@ export const CatForm: FC<ICatForm> = (props) => {
 									type="submit"
 									variant="default"
 								>
-									{isSubmitLoading ? <Loader2 className="m-2 animate-spin justify-center " /> : "Сохранить"}
+									{isSubmitLoading ? <Loader2 className="m-2 animate-spin justify-center " /> : t("common.save")}
 								</Button>
 							</div>
 						)}

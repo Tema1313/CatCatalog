@@ -1,5 +1,6 @@
+import type { Language } from "@/i18n"
 import type { ICat } from "../model"
-import { cats } from "../testdata"
+import { catsByLocale } from "../testdata"
 
 interface IGetCatsProps {
     colorId?: number
@@ -8,10 +9,13 @@ interface IGetCatsProps {
     catTypeId?: number
     breedId?: number
     coatId?: number
+    language: Language
 }
 
 export const getCats = (props: IGetCatsProps): ICat[] => {
-    const { colorId, shortName, name, breedId, catTypeId, coatId } = props
+    const { colorId, shortName, name, breedId, catTypeId, coatId, language } = props
+    const cats = catsByLocale[language]
+
     return cats.filter(cat => {
         if (colorId !== undefined && cat.colorId !== colorId) return false
         if (breedId !== undefined && cat.breedTypeId !== breedId) return false

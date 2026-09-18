@@ -28,7 +28,6 @@ import { Warning } from "@/shared/components/controls/warning"
 import { TablePagination } from "@/shared/components/ui/table-pagination"
 import { useRequestSimulation } from "@/shared/hooks/useRequestSimulation"
 import type { ICat, ICatBreedType, ICatLocationType, ICoatType, IColor } from "@/shared/api/model"
-import { catBreeds, catCoatTypes, catColors, catLocationType } from "@/shared/api/testdata"
 import { CatPersonalInfoLayout } from "./cat-personal-info/CatPersonalInfoLayout"
 import catBread from "@assets/bread-icons/catbread.png"
 import catNotBread from "@assets/bread-icons/catnobread.png"
@@ -36,6 +35,12 @@ import { CreateCat } from "./CreateCat"
 import { toast } from "sonner"
 import { getRgb } from "@/pages/catalogs/colors/utils/getRgb"
 import { useLanguage } from "@/i18n/hooks/useLanguage"
+import {
+	catBreedsByLocale,
+	catCoatTypesByLocale,
+	catColorsByLocale,
+	catLocationTypeByLocale,
+} from "@/shared/api/testdata"
 
 interface ICatsProps {
 	catId?: number
@@ -47,7 +52,7 @@ export const Cats: FC<ICatsProps> = (props) => {
 	const cats = useCatsStore((store) => store.cats)
 	const { updateCatList, isLoading: isCatListLoading } = useUpdateCatList()
 	const [loading, reqSim] = useRequestSimulation()
-	const { t } = useLanguage()
+	const { t, language } = useLanguage()
 
 	const currentCat = cats.find((product) => product.id === props.catId)
 	const isLoading = isCatListLoading || loading
@@ -236,12 +241,12 @@ export const Cats: FC<ICatsProps> = (props) => {
 
 	useEffect(() => {
 		reqSim(() => {
-			setBreedsList(catBreeds)
-			setColorsList(catColors)
-			setCatsTypeList(catLocationType)
-			setCoatsList(catCoatTypes)
+			setBreedsList(catBreedsByLocale[language])
+			setColorsList(catColorsByLocale[language])
+			setCatsTypeList(catLocationTypeByLocale[language])
+			setCoatsList(catCoatTypesByLocale[language])
 		}, 1500)
-	}, [])
+	}, [language])
 
 	return (
 		<ResizablePanelGroup direction="horizontal">
@@ -256,13 +261,14 @@ export const Cats: FC<ICatsProps> = (props) => {
 								title={t("cats.clear-filter")}
 								onClick={() => {
 									navigate({
-										search: () => ({
+										search: (prev) => ({
 											breedId: undefined,
 											catTypeId: undefined,
 											coatId: undefined,
 											colorId: undefined,
 											name: undefined,
 											shortName: undefined,
+											locale: prev.locale,
 										}),
 									})
 								}}

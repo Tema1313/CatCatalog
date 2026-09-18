@@ -1,5 +1,6 @@
+import { useLanguage } from "@/i18n/hooks/useLanguage"
 import type { ICat, ICatBreedType, ICatLocationType, ICoatType, IColor } from "@/shared/api/model"
-import { catBreeds, catCoatTypes, catColors, catLocationType } from "@/shared/api/testdata"
+import { catBreedsByLocale, catCoatTypesByLocale, catColorsByLocale, catLocationTypeByLocale } from "@/shared/api/testdata"
 import { useRequestSimulation } from "@/shared/hooks/useRequestSimulation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useEffect, useState } from "react"
@@ -27,7 +28,7 @@ const CatFormSchema = z.object({
     colorId: z.string({ message: "Required field" }).min(1, { message: "Required field" }),
     breedTypeId: z.string({ message: "Required field" }).min(1, { message: "Required field" }),
     locationTypeId: z.string({ message: "Required field" }).min(1, { message: "Required field" }),
-    softness: z.string({ message: "Укажите мягкость котика" }),
+    softness: z.string({ message: "Required field" }),
     breadness: z.boolean().optional(),
     bigeyedness: z.string({ message: "Required field" }).min(1, { message: "Required field" }),
     owner: z.string().optional(),
@@ -38,6 +39,7 @@ type CatFormData = z.infer<typeof CatFormSchema>
 
 export const useCatForm = (props: ICatForm) => {
     const [, reqSim] = useRequestSimulation()
+    const { t, language } = useLanguage()
 
     const [isSubmitLoading, setIsSubmitLoading] = useState<boolean>(false)
     const [isCatalogLoading, setIsCatalogLoading] = useState<boolean>(false)
@@ -80,11 +82,11 @@ export const useCatForm = (props: ICatForm) => {
         setIsSubmitLoading(true)
         reqSim(() => {
             if (Number(data.stars) !== 5) {
-                toast.error("Котиков с рейтингом менее 5 звезд не существует! Проверьте данные")
+                toast.error(t("cats.kitty-rating-error"))
                 return
             } else {
                 console.log(data)
-                toast.error("Technichal problemeows")
+                toast.error(t("common.technichal-problems"))
             }
         }, 2000).finally(() => {
             setIsSubmitLoading(false)
@@ -94,14 +96,14 @@ export const useCatForm = (props: ICatForm) => {
     useEffect(() => {
         setIsCatalogLoading(true)
         reqSim(() => {
-            setBreedsList(catBreeds)
-            setColorsList(catColors)
-            setCatsTypeList(catLocationType)
-            setCoatsList(catCoatTypes)
+            setBreedsList(catBreedsByLocale[language])
+            setColorsList(catColorsByLocale[language])
+            setCatsTypeList(catLocationTypeByLocale[language])
+            setCoatsList(catCoatTypesByLocale[language])
         }).then(() => {
             setIsCatalogLoading(false)
         })
-    }, [])
+    }, [language])
 
     return [
         form,

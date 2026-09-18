@@ -2,11 +2,13 @@ import { useSearch } from "@tanstack/react-router";
 import { useCatsStore } from "../model/catsStore";
 import { useRequestSimulation } from "@/shared/hooks/useRequestSimulation";
 import { getCats } from "@/shared/api/GET/getCats";
+import { useLanguage } from "@/i18n/hooks/useLanguage";
 
 export const useUpdateCatList = () => {
     const { setCats } = useCatsStore((store) => store);
     const searchParams = useSearch({ from: "__root__" });
     const [loading, reqSim] = useRequestSimulation()
+    const { language } = useLanguage()
 
     const updateCatList = () => {
         return reqSim(() => {
@@ -16,7 +18,8 @@ export const useUpdateCatList = () => {
                 coatId: searchParams.coatId ? Number(searchParams.coatId) : undefined,
                 catTypeId: searchParams.catTypeId ? Number(searchParams.catTypeId) : undefined,
                 name: searchParams.name ? searchParams.name : undefined,
-                shortName: searchParams.shortName ? searchParams.shortName : undefined
+                shortName: searchParams.shortName ? searchParams.shortName : undefined,
+                language
             })
         }, 1500).then((response) => {
             setCats(response);

@@ -62,7 +62,8 @@
         "can-kitty-loaf": "Can the kitty loaf",
         "loaf": "Loaf",
         "no-loaf": "No Loaf",
-        "no-kitty-photo": "No kitty pics found"
+        "no-kitty-photo": "No kitty pics found",
+        "kitty-rating-error": "Kitties with a rating below 5 stars don't exist! Check the data"
     },
     "common": {
         "delete": "Delete",

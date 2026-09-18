@@ -6,6 +6,7 @@ import { Loader2 } from "lucide-react"
 import { useEffect, useState, type FC } from "react"
 import { CatForm } from "../CatForm"
 import { CatPhotos } from "./CatPhotos"
+import { useLanguage } from "@/i18n/hooks/useLanguage"
 
 interface ICatPersonalInfoLayoutProps {
 	catId: number
@@ -14,16 +15,17 @@ interface ICatPersonalInfoLayoutProps {
 export const CatPersonalInfoLayout: FC<ICatPersonalInfoLayoutProps> = (props) => {
 	const [loading, reqSim] = useRequestSimulation()
 	const [cat, setCat] = useState<ICat | undefined>(undefined)
+	const { language } = useLanguage()
 
 	useEffect(() => {
 		if (props.catId) {
 			reqSim(() => {
-				return getCat(props.catId)
+				return getCat(props.catId, language)
 			}).then((result) => {
 				setCat(result || undefined)
 			})
 		}
-	}, [props.catId])
+	}, [props.catId, language])
 
 	return (
 		<>

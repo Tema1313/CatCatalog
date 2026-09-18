@@ -1,7 +1,12 @@
 import { useLanguage } from "@/i18n/hooks/useLanguage"
 import { getRgb } from "@/pages/catalogs/colors/utils/getRgb"
 import type { ICatBreedType, ICatLocationType, ICoatType, IColor } from "@/shared/api/model"
-import { catBreeds, catCoatTypes, catColors, catLocationType } from "@/shared/api/testdata"
+import {
+	catBreedsByLocale,
+	catCoatTypesByLocale,
+	catColorsByLocale,
+	catLocationTypeByLocale,
+} from "@/shared/api/testdata"
 import { Button } from "@/shared/components/ui/button"
 import {
 	Combobox,
@@ -37,7 +42,7 @@ export const Filters: FC<IFiltersProps> = () => {
 	const [loading, reqSim] = useRequestSimulation()
 	const searchParams = useSearch({ from: "__root__" })
 	const navigate = useNavigate({ from: "/" })
-	const { t } = useLanguage()
+	const { t, language } = useLanguage()
 	const defaultOption: { id?: number; name?: string } = { id: -1, name: t("filters.all") }
 
 	const [search, setSearch] = useState<{
@@ -77,25 +82,26 @@ export const Filters: FC<IFiltersProps> = () => {
 
 	const onSubmit = (data: FilterFormData) => {
 		navigate({
-			search: () => ({
+			search: (prev) => ({
 				name: data.name ? data.name : undefined,
 				shortName: data.shortName ? data.shortName : undefined,
 				catTypeId: data.catTypeId !== "-1" ? Number(data.catTypeId) : undefined,
 				colorId: data.colorId !== "-1" ? Number(data.colorId) : undefined,
 				breedId: data.breedId !== "-1" ? Number(data.breedId) : undefined,
 				coatId: data.coatId !== "-1" ? Number(data.coatId) : undefined,
+				locale: prev.locale,
 			}),
 		})
 	}
 
 	useEffect(() => {
 		reqSim(() => {
-			setBreedsList(catBreeds)
-			setColorsList(catColors)
-			setCatsTypeList(catLocationType)
-			setCoatsList(catCoatTypes)
+			setBreedsList(catBreedsByLocale[language])
+			setColorsList(catColorsByLocale[language])
+			setCatsTypeList(catLocationTypeByLocale[language])
+			setCoatsList(catCoatTypesByLocale[language])
 		})
-	}, [])
+	}, [language])
 
 	useEffect(() => {
 		form.reset({

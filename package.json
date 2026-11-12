@@ -1,7 +1,7 @@
 {
   "name": "catcatalog",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -45,7 +45,6 @@
     "@biomejs/biome": "2.5.10",
     "@eslint/js": "^10.0.1",
     "@tanstack/router-plugin": "^1.168.35",
-    "@tgrad/tsconfig": "^1.0.7",
     "@types/node": "^24.13.3",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",

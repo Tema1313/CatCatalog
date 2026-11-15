@@ -1,5 +1,5 @@
 import type { ICatBreedType } from "@/shared/api/model"
-import { catBreeds } from "@/shared/api/testdata"
+import { catBreedsByLocale } from "@/shared/api/testdata"
 import { Warning } from "@/shared/components/controls/warning"
 import { Button } from "@/shared/components/ui/button"
 import { Input } from "@/shared/components/ui/input"
@@ -44,13 +44,13 @@ export const Breeds: FC<ICoatsProps> = () => {
 		pageSize: 10,
 	})
 	const [loading, reqSim] = useRequestSimulation()
-	const { t } = useLanguage()
+	const { t, language } = useLanguage()
 
 	useEffect(() => {
 		reqSim(() => {
-			setBreeds(catBreeds)
+			setBreeds(catBreedsByLocale[language])
 		}, 2000)
-	}, [])
+	}, [language])
 
 	const columns: ColumnDef<ICatBreedType>[] = [
 		{
@@ -112,7 +112,7 @@ export const Breeds: FC<ICoatsProps> = () => {
 						<Button
 							onClick={() => {
 								reqSim(() => {
-									setBreeds(catBreeds)
+									setBreeds(catBreedsByLocale[language])
 								}, 2000)
 							}}
 							size="sm"

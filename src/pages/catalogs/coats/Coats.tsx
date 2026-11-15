@@ -29,7 +29,7 @@ import DateObject from "react-date-object"
 import { Warning } from "@/shared/components/controls/warning"
 import { toast } from "sonner"
 import type { ICoatType } from "@/shared/api/model"
-import { catCoatTypes } from "@/shared/api/testdata"
+import { catCoatTypesByLocale } from "@/shared/api/testdata"
 import { UpdateCoat } from "./UpdateCoat"
 import { CreateCoat } from "./CreateCoat"
 import { useLanguage } from "@/i18n/hooks/useLanguage"
@@ -45,13 +45,13 @@ export const Coats: FC<ICoatsProps> = () => {
 		pageSize: 10,
 	})
 	const [loading, reqSim] = useRequestSimulation()
-	const { t } = useLanguage()
+	const { t, language } = useLanguage()
 
 	useEffect(() => {
 		reqSim(() => {
-			setCoats(catCoatTypes)
+			setCoats(catCoatTypesByLocale[language])
 		}, 2000)
-	}, [])
+	}, [language])
 
 	const columns: ColumnDef<ICoatType>[] = [
 		{
@@ -120,7 +120,7 @@ export const Coats: FC<ICoatsProps> = () => {
 						<Button
 							onClick={() => {
 								reqSim(() => {
-									setCoats(catCoatTypes)
+									setCoats(catCoatTypesByLocale[language])
 								}, 2000)
 							}}
 							size="sm"

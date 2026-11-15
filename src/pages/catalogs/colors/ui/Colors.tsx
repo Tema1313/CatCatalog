@@ -28,7 +28,7 @@ import { Warning } from "@/shared/components/controls/warning"
 import { toast } from "sonner"
 import { TablePagination } from "@/shared/components/ui/table-pagination"
 import { CreateColor } from "./CreateColor"
-import { catColors } from "@/shared/api/testdata"
+import { catColorsByLocale } from "@/shared/api/testdata"
 import { getRgb } from "../utils/getRgb"
 import { useLanguage } from "@/i18n/hooks/useLanguage"
 
@@ -37,13 +37,13 @@ export interface IColorsProps {}
 export const Colors: FC<IColorsProps> = () => {
 	const [colors, setColors] = useState<IColor[]>([])
 	const [loading, reqSim] = useRequestSimulation()
-	const { t } = useLanguage()
+	const { t, language } = useLanguage()
 
 	useEffect(() => {
 		reqSim(() => {
-			setColors(catColors)
+			setColors(catColorsByLocale[language])
 		}, 2000)
-	}, [])
+	}, [language])
 
 	const [sorting, setSorting] = React.useState<SortingState>([])
 	const [pagination, setPagination] = React.useState({
@@ -135,7 +135,7 @@ export const Colors: FC<IColorsProps> = () => {
 							onClick={() => {
 								//If we used tanstack-query, we could invalidate a request
 								reqSim(() => {
-									setColors(catColors)
+									setColors(catColorsByLocale[language])
 								}, 2000)
 							}}
 							size="sm"

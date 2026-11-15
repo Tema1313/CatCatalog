@@ -251,138 +251,140 @@ export const Cats: FC<ICatsProps> = (props) => {
 	return (
 		<ResizablePanelGroup direction="horizontal">
 			<ResizablePanel defaultSize={props.catId ? 40 : 100}>
-				<div className="m-4">
-					<div className="flex justify-between items-center mb-3">
-						<div className="text-xl font-bold">{t("cats.kitty-products")}</div>
-						<div className="flex">
-							<Button
-								variant="ghost"
-								className="cursor-pointer p-2"
-								title={t("cats.clear-filter")}
-								onClick={() => {
-									navigate({
-										search: (prev) => ({
-											breedId: undefined,
-											catTypeId: undefined,
-											coatId: undefined,
-											colorId: undefined,
-											name: undefined,
-											shortName: undefined,
-											locale: prev.locale,
-										}),
-									})
-								}}
-							>
-								<Eraser color="#f7bb88" />
-							</Button>
-							<CreateCat />
-							<Warning
-								actionClick={() => {
-									reqSim(() => {
-										toast.error(t("common.technichal-problems"))
-									})
-								}}
-								description={t("cats.delete-cat")}
-								actionTitle={t("common.yes")}
-							>
+				<div className="h-full p-4 overflow-auto">
+					<div className="h-full">
+						<div className="flex justify-between items-center mb-3">
+							<div className="text-xl font-bold">{t("cats.kitty-products")}</div>
+							<div className="flex">
 								<Button
-									disabled={!currentCat}
-									title={t("common.delete")}
 									variant="ghost"
 									className="cursor-pointer p-2"
-								>
-									<X color="red" strokeWidth={4} />
-								</Button>
-							</Warning>
-							<Button
-								onClick={() => {
-									updateCatList()
-								}}
-								variant="ghost"
-								title={t("common.update")}
-								className="ml-auto green cursor-pointer p-2"
-							>
-								<RefreshCcw color="#4082b7" />
-							</Button>
-						</div>
-					</div>
-					{isLoading ? (
-						<div className="flex justify-center">
-							<Loader2 className="m-2 h-10 w-10 animate-spin justify-center " />
-						</div>
-					) : (
-						<div>
-							<div className="overflow-hidden rounded-md border">
-								<Table>
-									<TableHeader>
-										{table.getHeaderGroups().map((headerGroup) => (
-											<TableRow key={headerGroup.id}>
-												{headerGroup.headers.map((header) => {
-													return (
-														<TableHead key={header.id}>
-															{header.isPlaceholder
-																? null
-																: flexRender(header.column.columnDef.header, header.getContext())}
-														</TableHead>
-													)
-												})}
-											</TableRow>
-										))}
-									</TableHeader>
-									<TableBody>
-										{table.getRowModel().rows?.length ? (
-											table.getRowModel().rows.map((row) => (
-												<TableRow
-													onClick={() => {
-														if (row.original.id) {
-															navigate({
-																to: "/cat/$catId",
-																params: {
-																	catId: String(row.original.id),
-																},
-																search: (prev) => prev,
-															})
-														}
-													}}
-													key={row.id}
-													data-state={row.getIsSelected() && "selected"}
-													className={`${row.original.id === props.catId ? "bg-sky-300" : ""} h-[30px] cursor-pointer `}
-												>
-													{row.getVisibleCells().map((cell) => (
-														<TableCell key={cell.id}>
-															{flexRender(cell.column.columnDef.cell, cell.getContext())}
-														</TableCell>
-													))}
-												</TableRow>
-											))
-										) : (
-											<TableRow>
-												<TableCell colSpan={columns.length} className="h-24 text-center">
-													{t("cats.no-kitties")}
-												</TableCell>
-											</TableRow>
-										)}
-									</TableBody>
-								</Table>
-							</div>
-							<div className="flex justify-between justify-items-center flex-wrap-reverse">
-								<div className="mt-4">
-									{t("cats.Limit")}: {pagination.pageSize}
-								</div>
-								<TablePagination
-									table={table}
-									pageIndex={pagination.pageIndex}
-									setPageIndex={(pageIndex) => {
-										setPagination((prev) => ({
-											...prev,
-											pageIndex: pageIndex,
-										}))
+									title={t("cats.clear-filter")}
+									onClick={() => {
+										navigate({
+											search: (prev) => ({
+												breedId: undefined,
+												catTypeId: undefined,
+												coatId: undefined,
+												colorId: undefined,
+												name: undefined,
+												shortName: undefined,
+												locale: prev.locale,
+											}),
+										})
 									}}
-									countElements={cats.length}
-								/>
+								>
+									<Eraser color="#f7bb88" />
+								</Button>
+								<CreateCat />
+								<Warning
+									actionClick={() => {
+										reqSim(() => {
+											toast.error(t("common.technichal-problems"))
+										})
+									}}
+									description={t("cats.delete-cat")}
+									actionTitle={t("common.yes")}
+								>
+									<Button
+										disabled={!currentCat}
+										title={t("common.delete")}
+										variant="ghost"
+										className="cursor-pointer p-2"
+									>
+										<X color="red" strokeWidth={4} />
+									</Button>
+								</Warning>
+								<Button
+									onClick={() => {
+										updateCatList()
+									}}
+									variant="ghost"
+									title={t("common.update")}
+									className="ml-auto green cursor-pointer p-2"
+								>
+									<RefreshCcw color="#4082b7" />
+								</Button>
 							</div>
 						</div>
-					)}
+						{isLoading ? (
+							<div className="flex justify-center">
+								<Loader2 className="m-2 h-10 w-10 animate-spin justify-center " />
+							</div>
+						) : (
+							<div>
+								<div className="overflow-hidden rounded-md border">
+									<Table>
+										<TableHeader>
+											{table.getHeaderGroups().map((headerGroup) => (
+												<TableRow key={headerGroup.id}>
+													{headerGroup.headers.map((header) => {
+														return (
+															<TableHead key={header.id}>
+																{header.isPlaceholder
+																	? null
+																	: flexRender(header.column.columnDef.header, header.getContext())}
+															</TableHead>
+														)
+													})}
+												</TableRow>
+											))}
+										</TableHeader>
+										<TableBody>
+											{table.getRowModel().rows?.length ? (
+												table.getRowModel().rows.map((row) => (
+													<TableRow
+														onClick={() => {
+															if (row.original.id) {
+																navigate({
+																	to: "/cat/$catId",
+																	params: {
+																		catId: String(row.original.id),
+																	},
+																	search: (prev) => prev,
+																})
+															}
+														}}
+														key={row.id}
+														data-state={row.getIsSelected() && "selected"}
+														className={`${row.original.id === props.catId ? "bg-sky-300" : ""} h-[30px] cursor-pointer `}
+													>
+														{row.getVisibleCells().map((cell) => (
+															<TableCell key={cell.id}>
+																{flexRender(cell.column.columnDef.cell, cell.getContext())}
+															</TableCell>
+														))}
+													</TableRow>
+												))
+											) : (
+												<TableRow>
+													<TableCell colSpan={columns.length} className="h-24 text-center">
+														{t("cats.no-kitties")}
+													</TableCell>
+												</TableRow>
+											)}
+										</TableBody>
+									</Table>
+								</div>
+								<div className="flex justify-between justify-items-center flex-wrap-reverse pb-3">
+									<div className="mt-4">
+										{t("cats.Limit")}: {pagination.pageSize}
+									</div>
+									<TablePagination
+										table={table}
+										pageIndex={pagination.pageIndex}
+										setPageIndex={(pageIndex) => {
+											setPagination((prev) => ({
+												...prev,
+												pageIndex: pageIndex,
+											}))
+										}}
+										countElements={cats.length}
+									/>
+								</div>
+							</div>
+						)}
+					</div>
 				</div>
 			</ResizablePanel>
 			{props.catId && (

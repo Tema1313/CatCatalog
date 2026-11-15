@@ -18,8 +18,10 @@ import catNotBread from "@assets/bread-icons/catnobread.png"
 import { DialogClose, DialogFooter } from "@/shared/components/ui/dialog"
 import { Button } from "@/shared/components/ui/button"
 import { useLanguage } from "@/i18n/hooks/useLanguage"
+import { useNavigate } from "@tanstack/react-router"
 
 export const CatForm: FC<ICatForm> = (props) => {
+	const navigate = useNavigate({ from: "/" })
 	const [search, setSearch] = useState<{
 		color: string
 		catType: string
@@ -571,6 +573,12 @@ export const CatForm: FC<ICatForm> = (props) => {
 							</DialogFooter>
 						) : (
 							<div className="flex gap-3 justify-end mt-2">
+								<Button variant={"destructive"} onClick={() => {
+									navigate({
+										to: "/",
+										search: (prev) => prev,
+									})
+								}}>Зарыть карточку</Button>
 								<Button
 									size={"sm"}
 									className="cursor-pointer"
